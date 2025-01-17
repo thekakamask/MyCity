@@ -1,0 +1,39 @@
+package com.dcac.mycity.ui.utils
+
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.dp
+
+@Composable
+fun calculateLandscapeSafePadding(): PaddingValues {
+    val insets = WindowInsets.safeDrawing.asPaddingValues()
+
+    if (isLandscape()) {
+        val startInset = insets.calculateStartPadding(LocalLayoutDirection.current)
+        val endInset = insets.calculateEndPadding(LocalLayoutDirection.current)
+
+
+        return if (endInset > startInset) {
+            // Camera at left (start)
+            PaddingValues(start = startInset, end = 0.dp)
+        } else if(startInset > endInset) {
+            // Camera at right (end)
+            PaddingValues(start = 0.dp, end = startInset)
+        } else {
+            PaddingValues(0.dp)
+        }
+    }
+    return PaddingValues(0.dp)
+}
+
+@Composable
+fun isLandscape(): Boolean {
+    val configuration = androidx.compose.ui.platform.LocalConfiguration.current
+    return configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
+}

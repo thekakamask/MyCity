@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dcac.mycity.ui.MyCityApp
 import com.dcac.mycity.ui.theme.MyCityTheme
+import com.dcac.mycity.ui.utils.calculateLandscapeSafePadding
 
 /**
  * Activity for Sports app
@@ -58,30 +59,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
-
-@Composable
-fun calculateLandscapeSafePadding(): PaddingValues {
-    val insets = WindowInsets.safeDrawing.asPaddingValues()
-    val configuration = LocalConfiguration.current
-    val isLandscape = configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
-
-    if (isLandscape) {
-        val startInset = insets.calculateStartPadding(LocalLayoutDirection.current)
-        val endInset = insets.calculateEndPadding(LocalLayoutDirection.current)
-
-
-        return if (endInset > startInset) {
-            // Camera at left (start)
-            PaddingValues(start = startInset, end = 0.dp)
-        } else if(startInset > endInset) {
-            // Camera at right (end)
-            PaddingValues(start = 0.dp, end = startInset)
-        } else {
-            PaddingValues(0.dp)
-        }
-    }
-    return PaddingValues(0.dp)
 }
 
 @Preview

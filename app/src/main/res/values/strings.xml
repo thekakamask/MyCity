@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyCity</string>
+    <string name="logo_text">Logo text</string>
+    <string name="logo_image_detailed">Logo image detailed</string>
 </resources>
