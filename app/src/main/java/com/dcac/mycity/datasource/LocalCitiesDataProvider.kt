@@ -12,6 +12,7 @@ object LocalCitiesDataProvider {
         City(
             id = 1L,
             name = "Paris",
+            imageIconId = R.drawable.icon_city_paris,
             imageResourceId = R.drawable.image_paris,
             location = "France",
             places = LocalPlacesParisDataProvider.parisPlaces
@@ -19,6 +20,7 @@ object LocalCitiesDataProvider {
         City(
             id = 2L,
             name = "London",
+            imageIconId = R.drawable.icon_city_london,
             imageResourceId = R.drawable.image_london,
             location = "United Kingdom",
             places = LocalPlacesLondonDataProvider.londonPlaces
@@ -26,6 +28,7 @@ object LocalCitiesDataProvider {
         City(
             id = 3L,
             name = "Rome",
+            imageIconId = R.drawable.icon_city_rome,
             imageResourceId = R.drawable.image_rome,
             location = "Italy",
             places = LocalPlacesRomeDataProvider.romePlaces
@@ -33,6 +36,7 @@ object LocalCitiesDataProvider {
         City(
             id = 4L,
             name = "New York",
+            imageIconId = R.drawable.icon_city_new_york,
             imageResourceId = R.drawable.image_new_york,
             location = "United States",
             places = LocalPlacesNewYorkDataProvider.newYorkPlaces

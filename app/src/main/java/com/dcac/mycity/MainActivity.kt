@@ -48,6 +48,7 @@ class MainActivity : ComponentActivity() {
                         .background(MaterialTheme.colorScheme.background)
                 ) {
                     Surface(
+                        // apply good padding to landscape mode
                         modifier = Modifier
                             .padding(calculateLandscapeSafePadding())
                     ) {

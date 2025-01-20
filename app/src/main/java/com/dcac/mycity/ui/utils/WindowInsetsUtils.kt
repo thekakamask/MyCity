@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 
+// Helper function to calculate the safe padding for landscape mode
 @Composable
 fun calculateLandscapeSafePadding(): PaddingValues {
     val insets = WindowInsets.safeDrawing.asPaddingValues()
@@ -32,6 +33,7 @@ fun calculateLandscapeSafePadding(): PaddingValues {
     return PaddingValues(0.dp)
 }
 
+// Helper function to check if the device is in landscape mode
 @Composable
 fun isLandscape(): Boolean {
     val configuration = androidx.compose.ui.platform.LocalConfiguration.current

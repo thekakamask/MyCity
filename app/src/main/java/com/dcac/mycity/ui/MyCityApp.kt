@@ -15,13 +15,18 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dcac.mycity.R
+import com.dcac.mycity.model.Category
+import com.dcac.mycity.model.MyCityUiState
 import com.dcac.mycity.ui.utils.isLandscape
 
 @Composable
@@ -29,9 +34,15 @@ fun MyCityApp(
     windowSize: WindowWidthSizeClass,
     modifier: Modifier = Modifier
 ) {
+    val viewModel: MyCityViewmodel = viewModel()
+    val myCityUiState = viewModel.uiState.collectAsState().value
+
     Scaffold(
         topBar = {
             MyCityAppTopBar(
+                myCityUiState = myCityUiState,
+                onCitySelectedClick = { viewModel.updateCurrentCity(it) },
+                // apply good padding to landscape mode for the top bar
                 modifier = Modifier
                     .padding(
                         if (isLandscape()) {
@@ -42,8 +53,26 @@ fun MyCityApp(
                     )
                     .fillMaxWidth()
             )
+        },
+        bottomBar = {
+            val bottomNavigationContentDescription = stringResource(R.string.navigation_bottom)
+            MyCityAppBottomNavigationBar(
+                currentCategory = myCityUiState.currentCategory,
+                onTabPressed = {category: Category ->
+                    viewModel.updateCurrentCategory(category)
+                               },
+                modifier = Modifier
+                    .testTag(bottomNavigationContentDescription)
+            )
         }
+
+
     ){ innerPadding ->
-        MyCityAppContent(contentPaddingValues = innerPadding)
+        MyCityAppScreen(
+            myCityUiState = myCityUiState,
+            onTabPressed = { viewModel.updateCurrentCategory(it) },
+            modifier = Modifier.padding(innerPadding)
+        )
     }
 }
+

@@ -2,4 +2,13 @@
     <string name="app_name">MyCity</string>
     <string name="logo_text">Logo text</string>
     <string name="logo_image_detailed">Logo image detailed</string>
+
+    <string name="museum">Museum</string>
+    <string name="maul">Maul</string>
+    <string name="bar">Bar</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="nightclub">Nightclub</string>
+
+    <string name="navigation_bottom">Navigation Bottom</string>
+
 </resources>

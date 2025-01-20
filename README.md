@@ -3,21 +3,24 @@
 
 ## 📋 **Features**
    - 🌍 **City Selection**:
-      - 🔴 **NOT YET IMPLEMENTED** Choose between multiple cities and get recommendations tailored to the selected city.
+      - 🟢 **IN PROGRESS** Choose between multiple cities and get recommendations tailored to the selected city.
    - 🌟 **Personalized Recommendations**:
-      - 🔴 **NOT YET IMPLEMENTED** Browse different categories of activities, such as restaurants, museums, parks, and more.
+      - 🟢 **IN PROGRESS** Browse different categories of activities, such as restaurants, museums, parks, and more.
       - 🔴 **NOT YET IMPLEMENTED**  Each category provides a list of places or activities with images and specific details.
    - 🎨 **Modern and Fluid Interface**:
-      - 🟢 **IN PROGRESS** **TopBar Implementation**:
+      - ✅ **DONE** **TopBar Implementation**:
          - Displays the application logo on the left.
          - Shows a city image placeholder on the right.
          - Adapts padding to system insets (status bar and navigation buttons).
+      - ✅ **DONE** **BottomBar Implementation**:
+         - Displays the categories.
+         - Shows a category icon you can select for see places.
       - Built with Jetpack Compose for a declarative user interface.
       - Integrated with Material 3 for an accessible and contemporary design.
       - Supports light and dark themes.
       - 🟢 **IN PROGRESS** Adaptive layouts for smartphones and tablets.
    - 🔄 **Smooth Navigation**:
-      - 🔴 **NOT YET IMPLEMENTED** Navigate seamlessly between different screens using Jetpack Navigation.                   
+      - 🟢 **IN PROGRESS** Navigate seamlessly between different screens using Jetpack Navigation.                   
 
 ## 🛠️ **Tech Stack**
    - **Kotlin**: Modern, concise language for Android development.
