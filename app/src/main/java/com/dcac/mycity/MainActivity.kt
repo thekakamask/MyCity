@@ -45,7 +45,6 @@ class MainActivity : ComponentActivity() {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.background)
                 ) {
                     Surface(
                         // apply good padding to landscape mode

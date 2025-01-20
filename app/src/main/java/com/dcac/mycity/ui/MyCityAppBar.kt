@@ -12,10 +12,12 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Surface
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -51,6 +53,9 @@ fun MyCityAppTopBar(
                     .padding(start = dimensionResource(R.dimen.topbar_logo_padding))
             )
         },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        ),
         actions = {
             Box {
                 CityMenuItem(
@@ -160,7 +165,7 @@ fun MyCityAppBottomNavigationBar(
                         painter = painterResource(id = navItem.icon),
                         contentDescription = navItem.text
                     )
-                }
+                },
             )
         }
     }

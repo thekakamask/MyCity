@@ -24,13 +24,8 @@ object MyCityViewmodel : ViewModel() {
         // Load cities and associates them with their places
         val availableCities = LocalCitiesDataProvider.cities.associateWith { it.places }
 
-        // Define first city (Paris)
-        val currentCity = LocalCitiesDataProvider.cities[0]
-
-        // Défine first category (museum)
-        val currentCategory = Category.museum
-
-        // Filter places for the first category (museum)
+        val currentCity = _uiState.value.currentCity
+        val currentCategory = _uiState.value.currentCategory
         val places = currentCity.places.filter { it.category == currentCategory }
 
         // Update UI state

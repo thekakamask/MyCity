@@ -1,33 +1,24 @@
 package com.dcac.mycity.ui
 
-import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dcac.mycity.R
+import com.dcac.mycity.datasource.LocalCitiesDataProvider
+import com.dcac.mycity.datasource.localPlacesCityDataProvider.LocalPlacesLondonDataProvider
 import com.dcac.mycity.model.Category
 import com.dcac.mycity.model.MyCityUiState
-import com.dcac.mycity.ui.utils.isLandscape
+import com.dcac.mycity.ui.theme.MyCityTheme
 
 @Composable
 fun MyCityApp(
@@ -44,7 +35,7 @@ fun MyCityApp(
                 onCitySelectedClick = { viewModel.updateCurrentCity(it) },
                 // apply good padding to landscape mode for the top bar
                 modifier = modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
             )
         },
         bottomBar = {
@@ -66,6 +57,24 @@ fun MyCityApp(
             onTabPressed = { viewModel.updateCurrentCategory(it) },
             onPlaceClick = { viewModel.updateDetailsScreenState(it) },
             modifier = modifier.padding(innerPadding)
+            //TEST LOGCAT VOIR SI SES PROPRIETES (FILL MAX WIDTH LIGNE 33)
+        )
+    }
+}
+
+@Preview
+@Composable
+fun MyCityAppScreenPreview() {
+    MyCityTheme {
+        val myCityUiState = MyCityUiState(
+            currentCity = LocalCitiesDataProvider.cities[0],
+            currentCategory = Category.museum,
+            places = LocalPlacesLondonDataProvider.londonPlaces)
+        MyCityAppScreen(
+            myCityUiState = myCityUiState,
+            onTabPressed = {},
+            onPlaceClick = {},
+            modifier = Modifier
         )
     }
 }
