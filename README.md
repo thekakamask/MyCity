@@ -15,6 +15,8 @@
       - ✅ **DONE** **BottomBar Implementation**:
          - Displays the categories.
          - Shows a category icon you can select for see places.
+      - 🟢 **IN PROGRESS** **Developper page**:
+         - Display developper informations.
       - Built with Jetpack Compose for a declarative user interface.
       - Integrated with Material 3 for an accessible and contemporary design.
       - Supports light and dark themes.

@@ -32,7 +32,6 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.dcac.mycity.R
 import com.dcac.mycity.model.Category
 import com.dcac.mycity.model.City
@@ -43,8 +42,10 @@ import com.dcac.mycity.ui.theme.MyCityTheme
 @Composable
 fun MyCityAppTopBar(
     myCityUiState: MyCityUiState,
+    onLogoClick: () -> Unit,
     onCitySelectedClick: (City) -> Unit,
     onBackButtonClick: () -> Unit,
+    isBackButtonVisible: Boolean,
     modifier: Modifier = Modifier
 ) {
     var isMenuExpanded by remember { mutableStateOf(false) }
@@ -52,7 +53,7 @@ fun MyCityAppTopBar(
     TopAppBar(
         title = { },
         navigationIcon = {
-            if (!myCityUiState.isShowingHomepage) {
+            if (isBackButtonVisible) {
                 IconButton(onClick = onBackButtonClick) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
@@ -61,6 +62,7 @@ fun MyCityAppTopBar(
                 }
             } else {
                 MyCityAppLogo(
+                    onLogoClick = onLogoClick,
                     modifier = Modifier
                         .size(dimensionResource(R.dimen.topbar_logo_text_size))
                         .padding(start = dimensionResource(R.dimen.topbar_logo_padding))
@@ -115,11 +117,13 @@ fun MyCityAppTopBar(
 }
 
 @Composable
-private fun MyCityAppLogo(modifier: Modifier) {
+private fun MyCityAppLogo(
+    onLogoClick: () -> Unit,
+    modifier: Modifier) {
     Image(
         painter = painterResource(id = R.drawable.logo_text),
         contentDescription = stringResource(R.string.logo_text),
-        modifier = modifier
+        modifier = modifier.clickable(onClick = onLogoClick)
     )
 }
 
@@ -201,7 +205,9 @@ fun MyCityAppTopBarPreview() {
                 modifier = Modifier,
                 myCityUiState = myCityUiState,
                 onCitySelectedClick = {},
-                onBackButtonClick = {}
+                onLogoClick = {},
+                onBackButtonClick = {},
+                isBackButtonVisible = false
             )
         }
     }
