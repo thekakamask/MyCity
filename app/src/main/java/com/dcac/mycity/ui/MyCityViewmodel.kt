@@ -37,20 +37,13 @@ object MyCityViewmodel : ViewModel() {
         )
     }
 
-    //City menu
-    fun toggleCityMenuExpansion() {
-        _uiState.update {
-            it.copy(
-                isCityMenuExpanded = !it.isCityMenuExpanded
-            )
-        }
-    }
-
     fun updateCurrentCity(selectedCity: City) {
         _uiState.update { currentUiState ->
             currentUiState.copy(
                 currentCity = selectedCity,
-                places = selectedCity.places.filter { it.category == currentUiState.currentCategory }
+                places = selectedCity.places.filter { it.category == currentUiState.currentCategory },
+                isShowingHomepage = true,
+                currentPlace = null
             )
         }
     }
@@ -59,7 +52,9 @@ object MyCityViewmodel : ViewModel() {
         _uiState.update {
             it.copy(
                 currentCategory = selectedCategory,
-                places = it.currentCity.places.filter { it.category == selectedCategory }
+                places = it.currentCity.places.filter { it.category == selectedCategory },
+                isShowingHomepage = true,
+                currentPlace = null
             )
         }
     }
@@ -75,7 +70,7 @@ object MyCityViewmodel : ViewModel() {
     }
 
     // back button of the top bar
-    private fun resetHomeScreenStates() {
+    fun resetHomeScreenStates() {
         _uiState.update {
             it.copy(
                 isShowingHomepage = true,

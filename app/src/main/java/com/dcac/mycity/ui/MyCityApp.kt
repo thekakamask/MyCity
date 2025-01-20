@@ -33,6 +33,7 @@ fun MyCityApp(
             MyCityAppTopBar(
                 myCityUiState = myCityUiState,
                 onCitySelectedClick = { viewModel.updateCurrentCity(it) },
+                onBackButtonClick = { viewModel.resetHomeScreenStates() },
                 // apply good padding to landscape mode for the top bar
                 modifier = modifier
                     .fillMaxWidth(),
@@ -54,10 +55,9 @@ fun MyCityApp(
     ){ innerPadding ->
         MyCityAppScreen(
             myCityUiState = myCityUiState,
-            onTabPressed = { viewModel.updateCurrentCategory(it) },
             onPlaceClick = { viewModel.updateDetailsScreenState(it) },
+            onDetailScreenBackPressed = { viewModel.resetHomeScreenStates() },
             modifier = modifier.padding(innerPadding)
-            //TEST LOGCAT VOIR SI SES PROPRIETES (FILL MAX WIDTH LIGNE 33)
         )
     }
 }
@@ -72,8 +72,8 @@ fun MyCityAppScreenPreview() {
             places = LocalPlacesLondonDataProvider.londonPlaces)
         MyCityAppScreen(
             myCityUiState = myCityUiState,
-            onTabPressed = {},
             onPlaceClick = {},
+            onDetailScreenBackPressed = {},
             modifier = Modifier
         )
     }

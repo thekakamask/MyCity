@@ -8,10 +8,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -29,6 +32,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.dcac.mycity.R
 import com.dcac.mycity.model.Category
 import com.dcac.mycity.model.City
@@ -40,6 +44,7 @@ import com.dcac.mycity.ui.theme.MyCityTheme
 fun MyCityAppTopBar(
     myCityUiState: MyCityUiState,
     onCitySelectedClick: (City) -> Unit,
+    onBackButtonClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var isMenuExpanded by remember { mutableStateOf(false) }
@@ -47,11 +52,20 @@ fun MyCityAppTopBar(
     TopAppBar(
         title = { },
         navigationIcon = {
-            MyCityAppLogo(
-                modifier = Modifier
-                    .size(dimensionResource(R.dimen.topbar_logo_text_size))
-                    .padding(start = dimensionResource(R.dimen.topbar_logo_padding))
-            )
+            if (!myCityUiState.isShowingHomepage) {
+                IconButton(onClick = onBackButtonClick) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = stringResource(R.string.back_button)
+                    )
+                }
+            } else {
+                MyCityAppLogo(
+                    modifier = Modifier
+                        .size(dimensionResource(R.dimen.topbar_logo_text_size))
+                        .padding(start = dimensionResource(R.dimen.topbar_logo_padding))
+                )
+            }
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
@@ -186,7 +200,8 @@ fun MyCityAppTopBarPreview() {
             MyCityAppTopBar(
                 modifier = Modifier,
                 myCityUiState = myCityUiState,
-                onCitySelectedClick = {}
+                onCitySelectedClick = {},
+                onBackButtonClick = {}
             )
         }
     }

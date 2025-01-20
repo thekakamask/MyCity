@@ -3,10 +3,10 @@
 
 ## 📋 **Features**
    - 🌍 **City Selection**:
-      - 🟢 **IN PROGRESS** Choose between multiple cities and get recommendations tailored to the selected city.
+      - ✅ **DONE** Choose between multiple cities and get recommendations tailored to the selected city.
    - 🌟 **Personalized Recommendations**:
       - ✅ **DONE** Browse different categories of activities, such as restaurants, museums, parks, and more.
-      - 🟢 **IN PROGRESS**  Each category provides a list of places or activities with images and specific details.
+      - ✅ **DONE**  Each category provides a list of places or activities with images and specific details.
    - 🎨 **Modern and Fluid Interface**:
       - ✅ **DONE** **TopBar Implementation**:
          - Displays the application logo on the left.

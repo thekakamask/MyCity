@@ -1,6 +1,7 @@
 package com.dcac.mycity.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
@@ -35,14 +37,15 @@ import com.dcac.mycity.ui.theme.MyCityTheme
 fun MyCityAppScreen(
     myCityUiState: MyCityUiState,
     onPlaceClick: (Place) -> Unit,
-    onTabPressed: ((Category) -> Unit),
+    onDetailScreenBackPressed: () -> Unit,
     modifier: Modifier = Modifier
 ) {
 
     MyCityAppContent(
         myCityUiState = myCityUiState,
         onPlaceClick = onPlaceClick,
-        modifier = modifier
+        modifier = modifier,
+        onDetailScreenBackPressed = onDetailScreenBackPressed
     )
 }
 
@@ -50,6 +53,7 @@ fun MyCityAppScreen(
 private fun MyCityAppContent(
     myCityUiState: MyCityUiState,
     onPlaceClick: (Place) -> Unit,
+    onDetailScreenBackPressed: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -76,10 +80,12 @@ private fun MyCityAppContent(
                 ) {
                     Text(
                         text = myCityUiState.currentCity.name,
+                        style = MaterialTheme.typography.headlineSmall,
                         maxLines = 1,
                     )
                     Text(
                         text= myCityUiState.currentCity.location,
+                        style = MaterialTheme.typography.bodyLarge,
                         maxLines = 1,
                     )
                 }
@@ -95,7 +101,10 @@ private fun MyCityAppContent(
                 onPlaceClick = onPlaceClick,
             )
         } else {
-            MyCityAppDetails()
+            MyCityAppDetails(
+                myCityUiState = myCityUiState,
+                onBackPressed = onDetailScreenBackPressed,
+            )
         }
     }
 }
@@ -111,6 +120,7 @@ fun MyCityAppContentPreview() {
         MyCityAppContent(
             myCityUiState = myCityUiState,
             onPlaceClick = {},
+            onDetailScreenBackPressed = {},
             modifier = Modifier
         )
     }
