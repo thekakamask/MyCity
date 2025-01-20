@@ -43,25 +43,18 @@ fun MyCityApp(
                 myCityUiState = myCityUiState,
                 onCitySelectedClick = { viewModel.updateCurrentCity(it) },
                 // apply good padding to landscape mode for the top bar
-                modifier = Modifier
-                    .padding(
-                        if (isLandscape()) {
-                            WindowInsets.safeDrawing.asPaddingValues()
-                        } else {
-                            WindowInsets.statusBars.asPaddingValues()
-                        }
-                    )
+                modifier = modifier
                     .fillMaxWidth()
             )
         },
         bottomBar = {
             val bottomNavigationContentDescription = stringResource(R.string.navigation_bottom)
             MyCityAppBottomNavigationBar(
-                currentCategory = myCityUiState.currentCategory,
+                myCityUiState = myCityUiState,
                 onTabPressed = {category: Category ->
                     viewModel.updateCurrentCategory(category)
                                },
-                modifier = Modifier
+                modifier = modifier
                     .testTag(bottomNavigationContentDescription)
             )
         }
@@ -71,7 +64,8 @@ fun MyCityApp(
         MyCityAppScreen(
             myCityUiState = myCityUiState,
             onTabPressed = { viewModel.updateCurrentCategory(it) },
-            modifier = Modifier.padding(innerPadding)
+            onPlaceClick = { viewModel.updateDetailsScreenState(it) },
+            modifier = modifier.padding(innerPadding)
         )
     }
 }

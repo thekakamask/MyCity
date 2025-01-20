@@ -15,16 +15,19 @@ import androidx.compose.ui.res.stringResource
 import com.dcac.mycity.R
 import com.dcac.mycity.model.Category
 import com.dcac.mycity.model.MyCityUiState
+import com.dcac.mycity.model.Place
 
 @Composable
 fun MyCityAppScreen(
     myCityUiState: MyCityUiState,
+    onPlaceClick: (Place) -> Unit,
     onTabPressed: ((Category) -> Unit),
     modifier: Modifier = Modifier
 ) {
 
     MyCityAppContent(
         myCityUiState = myCityUiState,
+        onPlaceClick = onPlaceClick,
         modifier = modifier
     )
 }
@@ -32,14 +35,18 @@ fun MyCityAppScreen(
 @Composable
 private fun MyCityAppContent(
     myCityUiState: MyCityUiState,
+    onPlaceClick: (Place) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
     ) {
         if (myCityUiState.isShowingHomepage) {
-            MyCityAppList()
+            MyCityAppList(
+                myCityUiState = myCityUiState,
+                onPlaceClick = onPlaceClick,
+            )
         } else {
             MyCityAppDetails()
         }

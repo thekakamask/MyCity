@@ -52,9 +52,10 @@ object MyCityViewmodel : ViewModel() {
     }
 
     fun updateCurrentCity(selectedCity: City) {
-        _uiState.update {
-            it.copy(
-                currentCity = selectedCity
+        _uiState.update { currentUiState ->
+            currentUiState.copy(
+                currentCity = selectedCity,
+                places = selectedCity.places.filter { it.category == currentUiState.currentCategory }
             )
         }
     }
@@ -63,6 +64,7 @@ object MyCityViewmodel : ViewModel() {
         _uiState.update {
             it.copy(
                 currentCategory = selectedCategory,
+                places = it.currentCity.places.filter { it.category == selectedCategory }
             )
         }
     }
@@ -78,7 +80,7 @@ object MyCityViewmodel : ViewModel() {
     }
 
     // back button of the top bar
-    fun resetHomeScreenStates() {
+    private fun resetHomeScreenStates() {
         _uiState.update {
             it.copy(
                 isShowingHomepage = true,

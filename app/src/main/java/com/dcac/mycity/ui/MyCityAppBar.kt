@@ -3,26 +3,24 @@ package com.dcac.mycity.ui
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Surface
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
@@ -35,63 +33,66 @@ import com.dcac.mycity.model.City
 import com.dcac.mycity.model.MyCityUiState
 import com.dcac.mycity.ui.theme.MyCityTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyCityAppTopBar(
-    modifier: Modifier,
     myCityUiState: MyCityUiState,
-    onCitySelectedClick: (City) -> Unit
+    onCitySelectedClick: (City) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     var isMenuExpanded by remember { mutableStateOf(false) }
 
-    Row(
-        verticalAlignment= Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = modifier.fillMaxWidth()
-    ){
-        MyCityAppLogo(modifier = Modifier
-            .size(dimensionResource(R.dimen.topbar_logo_text_size))
-            .padding(start = dimensionResource(R.dimen.topbar_logo_padding)))
-
-        Box()
-        {
-            CityMenuItem(
-                city = myCityUiState.currentCity,
+    TopAppBar(
+        title = { },
+        navigationIcon = {
+            MyCityAppLogo(
                 modifier = Modifier
-                    .size(dimensionResource(R.dimen.topbar_logo_city_image_size))
-                    .clip(CircleShape)
-                    .clickable(
-                        onClick = { isMenuExpanded = true },
-                        indication = null,
-                        interactionSource = remember { MutableInteractionSource() }
-                    )
+                    .size(dimensionResource(R.dimen.topbar_logo_text_size))
+                    .padding(start = dimensionResource(R.dimen.topbar_logo_padding))
             )
+        },
+        actions = {
+            Box {
+                CityMenuItem(
+                    city = myCityUiState.currentCity,
+                    modifier = Modifier
+                        .size(dimensionResource(R.dimen.topbar_logo_city_image_size))
+                        .clip(CircleShape)
+                        .clickable(
+                            onClick = { isMenuExpanded = true },
+                            indication = null,
+                            interactionSource = remember { MutableInteractionSource() }
+                        )
+                )
 
-            DropdownMenu(
-                expanded = isMenuExpanded,
-                onDismissRequest = { isMenuExpanded = false },
-                modifier = Modifier.width(dimensionResource(R.dimen.topbar_logo_city_image_size))
-            ) {
-                myCityUiState.availableCities.keys.forEach { city ->
-                    DropdownMenuItem(
-                        text = {},
-                        leadingIcon = {
-                            Image(
-                                painter = painterResource(id = city.imageIconId),
-                                contentDescription = city.name,
-                                modifier = Modifier
-                                    .size(dimensionResource(R.dimen.topbar_logo_city_image_size))
-                                    .clip(CircleShape)
-                            )
-                        },
-                        onClick = {
-                            onCitySelectedClick(city)
-                            isMenuExpanded = false
-                        },
-                    )
+                DropdownMenu(
+                    expanded = isMenuExpanded,
+                    onDismissRequest = { isMenuExpanded = false },
+                    modifier = Modifier.width(dimensionResource(R.dimen.topbar_logo_city_image_size))
+                ) {
+                    myCityUiState.availableCities.keys.forEach { city ->
+                        DropdownMenuItem(
+                            text = {},
+                            leadingIcon = {
+                                Image(
+                                    painter = painterResource(id = city.imageIconId),
+                                    contentDescription = city.name,
+                                    modifier = Modifier
+                                        .size(dimensionResource(R.dimen.topbar_logo_city_image_size))
+                                        .clip(CircleShape)
+                                )
+                            },
+                            onClick = {
+                                onCitySelectedClick(city)
+                                isMenuExpanded = false
+                            },
+                        )
+                    }
                 }
             }
-        }
-    }
+        },
+        modifier = modifier
+    )
 }
 
 @Composable
@@ -114,10 +115,13 @@ private fun CityMenuItem(city: City, modifier: Modifier) {
 
 @Composable
 fun MyCityAppBottomNavigationBar(
-    currentCategory: Category,
+    myCityUiState: MyCityUiState,
     onTabPressed: ((Category) -> Unit),
     modifier: Modifier
 ) {
+
+    val currentCategory = myCityUiState.currentCategory
+
     val navigationItemContentList = listOf(
         NavigationItemContent(
             category = Category.museum,

@@ -5,7 +5,8 @@ data class Place(
     val name: String,
     val imageResourceId: Int,
     val description: String,
-    val address: String,
+    val streetAddress: String,
+    val cityLocation : String,
     val openingHours: String,
     val category: Category
 )
