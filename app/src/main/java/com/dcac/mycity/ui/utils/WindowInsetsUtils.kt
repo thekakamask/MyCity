@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 
@@ -38,4 +39,15 @@ fun calculateLandscapeSafePadding(): PaddingValues {
 fun isLandscape(): Boolean {
     val configuration = androidx.compose.ui.platform.LocalConfiguration.current
     return configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
+}
+
+@Composable
+fun isLandscapeSmartphone(): Boolean {
+    val configuration = LocalConfiguration.current
+    val screenWidthDp = configuration.screenWidthDp
+    val screenHeightDp = configuration.screenHeightDp
+    val screenRatio = screenWidthDp.toFloat() / screenHeightDp.toFloat()
+
+    // Consider smartphone if ratio is large but screen stay compact
+    return screenWidthDp > 600 && screenRatio > 1.5 && screenHeightDp < 600
 }

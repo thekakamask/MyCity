@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -45,7 +46,8 @@ fun MyCityAppTopBar(
     onLogoClick: () -> Unit,
     onCitySelectedClick: (City) -> Unit,
     onBackButtonClick: () -> Unit,
-    isBackButtonVisible: Boolean,
+    onDevForwardClick: () -> Unit,
+    isDevScreen: Boolean,
     modifier: Modifier = Modifier
 ) {
     var isMenuExpanded by remember { mutableStateOf(false) }
@@ -53,61 +55,88 @@ fun MyCityAppTopBar(
     TopAppBar(
         title = { },
         navigationIcon = {
-            if (isBackButtonVisible) {
-                IconButton(onClick = onBackButtonClick) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.back_button)
+            when {
+                isDevScreen -> {
+                    // Dev screen: MyCity logo
+                    MyCityAppLogo(
+                        onLogoClick = {},
+                        modifier = Modifier
+                            .size(dimensionResource(R.dimen.topbar_logo_text_size))
+                            .padding(start = dimensionResource(R.dimen.topbar_logo_padding))
                     )
                 }
-            } else {
-                MyCityAppLogo(
-                    onLogoClick = onLogoClick,
-                    modifier = Modifier
-                        .size(dimensionResource(R.dimen.topbar_logo_text_size))
-                        .padding(start = dimensionResource(R.dimen.topbar_logo_padding))
-                )
+                !myCityUiState.isShowingHomepage -> {
+                    // Details page : return logo
+                    IconButton(onClick = onBackButtonClick) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.back_button)
+                        )
+                    }
+                }
+                else -> {
+                    // Home : MyCity logo
+                    MyCityAppLogo(
+                        onLogoClick = onLogoClick,
+                        modifier = Modifier
+                            .size(dimensionResource(R.dimen.topbar_logo_text_size))
+                            .padding(start = dimensionResource(R.dimen.topbar_logo_padding))
+                    )
+                }
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
         ),
         actions = {
-            Box {
-                CityMenuItem(
-                    city = myCityUiState.currentCity,
-                    modifier = Modifier
-                        .size(dimensionResource(R.dimen.topbar_logo_city_image_size))
-                        .clip(CircleShape)
-                        .clickable(
-                            onClick = { isMenuExpanded = true },
-                            indication = null,
-                            interactionSource = remember { MutableInteractionSource() }
+            when {
+                isDevScreen -> {
+                    // Flèche forward pour la page Dev
+                    IconButton(onClick = onDevForwardClick) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowForward,
+                            contentDescription = stringResource(R.string.dev_screen_forward_button)
                         )
-                )
-
-                DropdownMenu(
-                    expanded = isMenuExpanded,
-                    onDismissRequest = { isMenuExpanded = false },
-                    modifier = Modifier.width(dimensionResource(R.dimen.topbar_logo_city_image_size))
-                ) {
-                    myCityUiState.availableCities.keys.forEach { city ->
-                        DropdownMenuItem(
-                            text = {},
-                            leadingIcon = {
-                                Image(
-                                    painter = painterResource(id = city.imageIconId),
-                                    contentDescription = city.name,
-                                    modifier = Modifier
-                                        .size(dimensionResource(R.dimen.topbar_logo_city_image_size))
-                                        .clip(CircleShape)
+                    }
+                }
+                else -> {
+                    Box {
+                        CityMenuItem(
+                            city = myCityUiState.currentCity,
+                            modifier = Modifier
+                                .size(dimensionResource(R.dimen.topbar_logo_city_image_size))
+                                .clip(CircleShape)
+                                .clickable(
+                                    onClick = { isMenuExpanded = true },
+                                    indication = null,
+                                    interactionSource = remember { MutableInteractionSource() }
                                 )
-                            },
-                            onClick = {
-                                onCitySelectedClick(city)
-                                isMenuExpanded = false
-                            },
                         )
+
+                        DropdownMenu(
+                            expanded = isMenuExpanded,
+                            onDismissRequest = { isMenuExpanded = false },
+                            modifier = Modifier.width(dimensionResource(R.dimen.topbar_logo_city_image_size))
+                        ) {
+                            myCityUiState.availableCities.keys.forEach { city ->
+                                DropdownMenuItem(
+                                    text = {},
+                                    leadingIcon = {
+                                        Image(
+                                            painter = painterResource(id = city.imageIconId),
+                                            contentDescription = city.name,
+                                            modifier = Modifier
+                                                .size(dimensionResource(R.dimen.topbar_logo_city_image_size))
+                                                .clip(CircleShape)
+                                        )
+                                    },
+                                    onClick = {
+                                        onCitySelectedClick(city)
+                                        isMenuExpanded = false
+                                    },
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -207,7 +236,8 @@ fun MyCityAppTopBarPreview() {
                 onCitySelectedClick = {},
                 onLogoClick = {},
                 onBackButtonClick = {},
-                isBackButtonVisible = false
+                onDevForwardClick = {},
+                isDevScreen = false
             )
         }
     }

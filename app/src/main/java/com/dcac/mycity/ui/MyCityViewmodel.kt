@@ -79,6 +79,15 @@ object MyCityViewmodel : ViewModel() {
         }
     }
 
+    fun updateHomeScreenStates() {
+        _uiState.update {
+            it.copy(
+                isShowingHomepage = false,
+                currentPlace = null
+            )
+        }
+    }
+
     // android back button
     fun handleBackNavigation(): Boolean {
         return if (!_uiState.value.isShowingHomepage) {

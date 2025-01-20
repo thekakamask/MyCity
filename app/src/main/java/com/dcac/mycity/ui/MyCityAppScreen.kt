@@ -32,10 +32,14 @@ import com.dcac.mycity.model.Category
 import com.dcac.mycity.model.MyCityUiState
 import com.dcac.mycity.model.Place
 import com.dcac.mycity.ui.theme.MyCityTheme
+import com.dcac.mycity.ui.utils.MyCityContentType
+import com.dcac.mycity.ui.utils.MyCityNavigationType
 
 @Composable
 fun MyCityAppScreen(
     myCityUiState: MyCityUiState,
+    navigationType: MyCityNavigationType,
+    contentType: MyCityContentType,
     onPlaceClick: (Place) -> Unit,
     onDetailScreenBackPressed: () -> Unit,
     modifier: Modifier = Modifier

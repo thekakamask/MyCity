@@ -25,7 +25,10 @@ import com.dcac.mycity.datasource.localPlacesCityDataProvider.LocalPlacesLondonD
 import com.dcac.mycity.model.Category
 import com.dcac.mycity.model.MyCityUiState
 import com.dcac.mycity.ui.theme.MyCityTheme
+import com.dcac.mycity.ui.utils.MyCityContentType
+import com.dcac.mycity.ui.utils.MyCityNavigationType
 import com.dcac.mycity.ui.utils.MyCityScreenEnum
+import com.dcac.mycity.ui.utils.isLandscapeSmartphone
 
 @Composable
 fun MyCityApp(
@@ -39,21 +42,52 @@ fun MyCityApp(
     val currentScreen = MyCityScreenEnum.valueOf(
         backStackEntry?.destination?.route ?: MyCityScreenEnum.HomePage.name
     )
+    val navigationType: MyCityNavigationType
+    val contentType: MyCityContentType
+
+    when(windowSize) {
+        WindowWidthSizeClass.Compact -> {
+            navigationType = MyCityNavigationType.BOTTOM_NAVIGATION
+            contentType = MyCityContentType.LIST_ONLY
+        }
+        WindowWidthSizeClass.Medium -> {
+            navigationType =MyCityNavigationType.NAVIGATION_RAIL
+            contentType = MyCityContentType.LIST_ONLY
+        }
+        WindowWidthSizeClass.Expanded -> {
+            val isLandscapeSmartphone = isLandscapeSmartphone()
+            if (isLandscapeSmartphone) {
+                navigationType = MyCityNavigationType.NAVIGATION_RAIL // Display rail on smartphone landscape
+                contentType = MyCityContentType.LIST_ONLY
+
+            } else {
+                navigationType = MyCityNavigationType.PERMANENT_NAVIGATION_DRAWER // Drawer for tablet
+                contentType = MyCityContentType.LIST_AND_DETAIL
+            }
+        }
+        else -> {
+            navigationType = MyCityNavigationType.BOTTOM_NAVIGATION
+            contentType = MyCityContentType.LIST_ONLY
+        }
+    }
 
     Scaffold(
         topBar = {
             MyCityAppTopBar(
                 myCityUiState = myCityUiState,
                 onCitySelectedClick = { viewModel.updateCurrentCity(it) },
-                onLogoClick = { navController.navigate(MyCityScreenEnum.DevPage.name) },
+                onLogoClick = {
+                    viewModel.updateHomeScreenStates()
+                    navController.navigate(MyCityScreenEnum.DevPage.name)
+                              },
                 onBackButtonClick = {
-                    if (currentScreen == MyCityScreenEnum.DevPage) {
-                        navController.navigateUp() // Back to the previous screen
-                    } else {
-                        viewModel.resetHomeScreenStates()
-                    }
+                    viewModel.resetHomeScreenStates()
                 },
-                isBackButtonVisible = !myCityUiState.isShowingHomepage || currentScreen == MyCityScreenEnum.DevPage,
+                onDevForwardClick = {
+                    navController.navigateUp()
+                    viewModel.resetHomeScreenStates()
+                },
+                isDevScreen = currentScreen == MyCityScreenEnum.DevPage,
                 modifier = modifier
                     .fillMaxWidth(),
             )
@@ -83,6 +117,8 @@ fun MyCityApp(
             composable(route = MyCityScreenEnum.HomePage.name) {
                 MyCityAppScreen(
                     myCityUiState = myCityUiState,
+                    navigationType = navigationType,
+                    contentType = contentType,
                     onPlaceClick = { viewModel.updateDetailsScreenState(it) },
                     onDetailScreenBackPressed = { viewModel.resetHomeScreenStates() },
                     modifier = modifier
@@ -110,7 +146,9 @@ fun MyCityAppScreenPreview() {
             myCityUiState = myCityUiState,
             onPlaceClick = {},
             onDetailScreenBackPressed = {},
-            modifier = Modifier
+            modifier = Modifier,
+            navigationType = MyCityNavigationType.BOTTOM_NAVIGATION,
+            contentType = MyCityContentType.LIST_ONLY
         )
     }
 }
