@@ -53,13 +53,6 @@ fun MyCityAppList(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
         modifier = modifier,
     ) {
-        /*item {
-            Divider(
-                color = Color.LightGray,
-                thickness = 1.dp,
-                modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_medium))
-            )
-        }*/
         items(myCityUiState.places) { place ->
             Column {
                 MyCityAppListItem(

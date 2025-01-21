@@ -21,7 +21,9 @@
     <string name="restaurant">Restaurant</string>
     <string name="nightclub">Nightclub</string>
 
-    <string name="navigation_bottom">Navigation Bottom</string>
+    <string name="navigation_top">Top bar</string>
+    <string name="navigation_bottom">Navigation bottom</string>
+    <string name="navigation_rail">Navigation rail</string>
     <string name="back_button">Back</string>
 
 </resources>
