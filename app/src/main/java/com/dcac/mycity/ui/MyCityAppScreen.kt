@@ -31,7 +31,6 @@ import com.dcac.mycity.model.Place
 import com.dcac.mycity.ui.theme.MyCityTheme
 import com.dcac.mycity.ui.utils.MyCityContentType
 import com.dcac.mycity.ui.utils.MyCityNavigationType
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
 fun MyCityAppScreen(
@@ -63,12 +62,47 @@ private fun MyCityAppContent(
             .fillMaxSize()
     ) {
         if (myCityUiState.isShowingHomepage) {
-            if (navigationType == MyCityNavigationType.BOTTOM_NAVIGATION) {
+            if (navigationType == MyCityNavigationType.NAVIGATION_RAIL) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = myCityUiState.currentCity.imageResourceId),
+                        contentDescription = myCityUiState.currentCity.name,
+                        modifier = Modifier
+                            .size(60.dp)
+                    )
+                    Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_large)))
+                    Row (horizontalArrangement = Arrangement.Center) {
+                        Text(
+                            text = myCityUiState.currentCity.name,
+                            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                            maxLines = 1,
+                        )
+                        Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_small)))
+                        Text(
+                            text= myCityUiState.currentCity.location,
+                            style = MaterialTheme.typography.bodyLarge,
+                            maxLines = 1,
+                        )
+                    }
+                }
+                Divider(
+                    color = Color.LightGray,
+                    thickness = 2.dp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+            } else {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = dimensionResource(R.dimen.padding_medium)),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     Image(
                         painter = painterResource(id = myCityUiState.currentCity.imageResourceId),
@@ -77,9 +111,8 @@ private fun MyCityAppContent(
                             .size(100.dp)
                     )
                     Column(
-                        verticalArrangement = Arrangement.spacedBy(4.dp),
+                        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_xsmall)),
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
                             text = myCityUiState.currentCity.name,
@@ -95,44 +128,7 @@ private fun MyCityAppContent(
                 }
                 Divider(
                     color = Color.LightGray,
-                    thickness = 1.dp,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                )
-            } else {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = dimensionResource(R.dimen.padding_medium)),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painter = painterResource(id = myCityUiState.currentCity.imageResourceId),
-                        contentDescription = myCityUiState.currentCity.name,
-                        modifier = Modifier
-                            .size(50.dp)
-                    )
-                    Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_medium)))
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Text(
-                            text = myCityUiState.currentCity.name,
-                            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                            maxLines = 1,
-                        )
-                        Text(
-                            text= myCityUiState.currentCity.location,
-                            style = MaterialTheme.typography.bodyLarge,
-                            maxLines = 1,
-                        )
-                    }
-                }
-                Divider(
-                    color = Color.LightGray,
-                    thickness = 1.dp,
+                    thickness = 2.dp,
                     modifier = Modifier
                         .fillMaxWidth()
                 )
@@ -140,12 +136,14 @@ private fun MyCityAppContent(
 
             MyCityAppList(
                 myCityUiState = myCityUiState,
+                navigationType = navigationType,
                 onPlaceClick = onPlaceClick,
             )
         } else {
             MyCityAppDetails(
                 myCityUiState = myCityUiState,
                 onBackPressed = onDetailScreenBackPressed,
+                navigationType = navigationType
             )
         }
     }

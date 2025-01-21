@@ -5,7 +5,9 @@
     <dimen name="topbar_logo_city_image_size">60dp</dimen>
     <dimen name="topbar_logo_padding">8dp</dimen>
 
+    <dimen name="padding_xxsmall">2dp</dimen>
+    <dimen name="padding_xsmall">4dp</dimen>
     <dimen name="padding_small">8dp</dimen>
     <dimen name="padding_medium">16dp</dimen>
-
+    <dimen name="padding_large">32dp</dimen>
 </resources>

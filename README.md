@@ -40,41 +40,37 @@
 
 ## 📦 **Project Structure**
 **Packages**:
-1. **datasource**:
-   - Provides static and local data models:
-      - **LocalCitiesDataProvider**: Contains the list of available cities.
-      - **LocalPlacesLondonDataProvider**: Provides details about places in London.
-      - **LocalPlacesNewYorkDataProvider**: Provides details about places in New York.
-      - **LocalPlacesParisDataProvider**: Provides details about places in Paris.
-      - **LocalPlacesRomeDataProvider**: Provides details about places in Rome.
-2. **model**:
-   - Defines data models for cities, categories, and places:
-      -**City**: Represents a city with its details such as name, image, and location.
-      -**Category**: Represents categories of places (e.g., museums, restaurants).
-      -**Place**: Represents a specific place with details like description, address, and category.
-      -**MyCityUiState**: Manages the UI state, including selected city, category, and places.
-3. **ui**:
-   - Implements the user interface using Jetpack Compose:
-      -**theme**:
-         -**Color.kt**: Defines the color palette for the application.
-         -**Theme.kt**: Manages light and dark themes using Material 3.
-         -**Type.kt**: Specifies typography styles.
-      - **utils**:
-         - **MyCityContentType**: Enum for handling adaptive UI content.
-         - **MyCityNavigationType**: Enum for handling navigation types (BottomNav, Rail, Drawer).
-         -**MyCityScreenEnum**: Enum for managing screen routing.
-         -**WindowInsetsUtils.kt**: Utility for calculating system padding and insets.
-      - **components**:
-         -**MyCityApp.kt**: Main entry point of the app managing the scaffold and navigation.
-         -**MyCityAppBar.kt**: Composable for the bar with dynamic content (e.g., logo, back button, or menu).
-         -**MyCityAppScreen.kt**: Displays the main content.
-         -**MyCityListAndDetailsContent.kt**: Handles list and details page displaying.
-         -**MyCityDevScreen.kt**: Provides a page for developer informations.
-         - **MyCityViewModel**: Manages the state of the application using StateFlow, Updates the UI state, including current city,category, and selected place.
-4. **MainActivity**:
-   -Serves as the app's entry point:
-      - Initializes and launches the main content using Jetpack Compose.
-      - Handles window size classes and adaptive padding for landscape and portrait orientations.
+1. **datasource** Provides static and local data models:
+   - **LocalCitiesDataProvider**: Contains the list of available cities.
+   - **LocalPlacesLondonDataProvider**: Provides details about places in London.
+   - **LocalPlacesNewYorkDataProvider**: Provides details about places in New York.
+   - **LocalPlacesParisDataProvider**: Provides details about places in Paris.
+   - **LocalPlacesRomeDataProvider**: Provides details about places in Rome.
+2. **model** Defines data models for cities, categories, and places:
+   -**City**: Represents a city with its details such as name, image, and location.
+   -**Category**: Represents categories of places (e.g., museums, restaurants).
+   -**Place**: Represents a specific place with details like description, address, and category.
+   -**MyCityUiState**: Manages the UI state, including selected city, category, and places.
+3. **ui** Implements the user interface using Jetpack Compose:
+3.1.**ui.theme**:
+   -**Color.kt**: Defines the color palette for the application.
+   -**Theme.kt**: Manages light and dark themes using Material 3.
+   -**Type.kt**: Specifies typography styles.
+3.2**ui.utils**:
+   - **MyCityContentType**: Enum for handling adaptive UI content.
+   - **MyCityNavigationType**: Enum for handling navigation types (BottomNav, Rail, Drawer).
+   -**MyCityScreenEnum**: Enum for managing screen routing.
+   -**WindowInsetsUtils.kt**: Utility for calculating system padding and insets.
+3.3 **ui.components**:
+   -**MyCityApp.kt**: Main entry point of the app managing the scaffold and navigation.
+   -**MyCityAppBar.kt**: Composable for the bar with dynamic content (e.g., logo, back button, or menu).
+   -**MyCityAppScreen.kt**: Displays the main content.
+   -**MyCityListAndDetailsContent.kt**: Handles list and details page displaying.
+   -**MyCityDevScreen.kt**: Provides a page for developer informations.
+   - **MyCityViewModel**: Manages the state of the application using StateFlow, Updates the UI state, including current city,category, and selected place.
+4. **MainActivity** Serves as the app's entry point:
+   - Initializes and launches the main content using Jetpack Compose.
+   - Handles window size classes and adaptive padding for landscape and portrait orientations.
 
 ## 🚀 **How to Use**
 1. **Launch the App**:

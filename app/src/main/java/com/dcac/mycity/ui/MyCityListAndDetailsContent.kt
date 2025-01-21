@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -41,22 +42,22 @@ import com.dcac.mycity.datasource.LocalCitiesDataProvider
 import com.dcac.mycity.model.MyCityUiState
 import com.dcac.mycity.model.Place
 import com.dcac.mycity.ui.theme.MyCityTheme
+import com.dcac.mycity.ui.utils.MyCityNavigationType
 
 @Composable
 fun MyCityAppList(
     myCityUiState: MyCityUiState,
+    navigationType: MyCityNavigationType,
     onPlaceClick: (Place) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
-        modifier = modifier,
-    ) {
+    LazyColumn {
         items(myCityUiState.places) { place ->
             Column {
                 MyCityAppListItem(
                     place = place,
+                    navigationType = navigationType,
                     onPlaceClick = onPlaceClick
                 )
                 Divider(
@@ -72,50 +73,97 @@ fun MyCityAppList(
 @Composable
 fun MyCityAppListItem(
     place: Place,
+    navigationType: MyCityNavigationType,
     onPlaceClick: (Place) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable { onPlaceClick(place) }
-            .padding(dimensionResource(R.dimen.padding_medium)),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Image(
-            painter = painterResource(id = place.imageResourceId),
-            contentDescription = place.name,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .size(100.dp)
-                .clip(CircleShape)
-        )
-        Spacer(modifier = Modifier.padding(horizontal = 8.dp))
-        Column(
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier.fillMaxWidth()
+    if (navigationType == MyCityNavigationType.NAVIGATION_RAIL) {
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .clickable { onPlaceClick(place) }
+                .padding(dimensionResource(R.dimen.padding_small)),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = place.name,
-                style = MaterialTheme.typography.bodyLarge,
-                maxLines = 1,
+            Image(
+                painter = painterResource(id = place.imageResourceId),
+                contentDescription = place.name,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(60.dp)
+                    .clip(CircleShape)
             )
-            Text(
-                text= place.streetAddress,
-                style = MaterialTheme.typography.bodyMedium,
-                maxLines = 1,
-            )
+            Spacer(modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_small)))
+            Column(
+                verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_xxsmall)),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = place.name,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                )
+                Text(
+                    text= place.streetAddress,
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1,
+                )
 
-            Text(
-                text = place.cityLocation,
-                style = MaterialTheme.typography.bodyMedium,
-                maxLines = 1,
+                Text(
+                    text = place.cityLocation,
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1,
+                )
+                Text(
+                    text = place.openingHours,
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1,
+                )
+            }
+        }
+    } else {
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .clickable { onPlaceClick(place) }
+                .padding(dimensionResource(R.dimen.padding_medium)),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = place.imageResourceId),
+                contentDescription = place.name,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(100.dp)
+                    .clip(CircleShape)
             )
-            Text(
-                text = place.openingHours,
-                style = MaterialTheme.typography.bodyMedium,
-                maxLines = 1,
-            )
+            Spacer(modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_small)))
+            Column(
+                verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_xsmall)),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = place.name,
+                    style = MaterialTheme.typography.bodyLarge,
+                    maxLines = 1,
+                )
+                Text(
+                    text= place.streetAddress,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                )
+
+                Text(
+                    text = place.cityLocation,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                )
+                Text(
+                    text = place.openingHours,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                )
+            }
         }
     }
 }
@@ -123,6 +171,7 @@ fun MyCityAppListItem(
 @Composable
 fun MyCityAppDetails(
     myCityUiState: MyCityUiState,
+    navigationType: MyCityNavigationType,
     onBackPressed: () -> Unit,
     modifier: Modifier = Modifier){
 
@@ -132,58 +181,119 @@ fun MyCityAppDetails(
 
     val currentPlace = myCityUiState.currentPlace
     if (currentPlace != null) {
-        Column(
-            modifier = modifier
+        if (navigationType == MyCityNavigationType.NAVIGATION_RAIL) {
+            Row(modifier = modifier
                 .fillMaxSize()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Image(
-                painter = painterResource(id = currentPlace.imageResourceId),
-                contentDescription = currentPlace.name,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(16 / 9f)
-                    .clip(androidx.compose.foundation.shape.RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop
-            )
+                .padding(horizontal = dimensionResource(R.dimen.padding_small),
+                    vertical = dimensionResource(R.dimen.padding_small)),
+                horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)))
+            {
+                Image(
+                    painter = painterResource(id = currentPlace.imageResourceId),
+                    contentDescription = currentPlace.name,
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .aspectRatio(9 / 16f)
+                        .clip(androidx.compose.foundation.shape.RoundedCornerShape(dimensionResource(R.dimen.padding_small))),
+                    contentScale = ContentScale.Crop
+                )
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_xsmall)),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = currentPlace.name,
+                        style = MaterialTheme.typography.headlineMedium,
+                        modifier = Modifier.padding(vertical = dimensionResource(R.dimen.padding_xsmall))
+                    )
 
-            Text(
-                text = currentPlace.name,
-                style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(vertical = 4.dp)
-            )
+                    Text(
+                        text = "Address:",
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            textDecoration = TextDecoration.Underline
+                        )
+                    )
+                    Text(
+                        text = "${currentPlace.streetAddress}, ${currentPlace.cityLocation}",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = "Opening Hours:",
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            textDecoration = TextDecoration.Underline
+                        )
+                    )
+                    Text(
+                        text = "${currentPlace.openingHours}",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = "Description:",
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            textDecoration = TextDecoration.Underline
+                        )
+                    )
+                    Text(
+                        text = currentPlace.description,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+        } else {
+            Column(
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(horizontal = dimensionResource(R.dimen.padding_medium),
+                        vertical = dimensionResource(R.dimen.padding_small)),
+                verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
+            ) {
+                Image(
+                    painter = painterResource(id = currentPlace.imageResourceId),
+                    contentDescription = currentPlace.name,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(16 / 9f)
+                        .clip(androidx.compose.foundation.shape.RoundedCornerShape(dimensionResource(R.dimen.padding_small))),
+                    contentScale = ContentScale.Crop
+                )
 
-            Text(
-                text = "Address:",
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    textDecoration = TextDecoration.Underline
+                Text(
+                    text = currentPlace.name,
+                    style = MaterialTheme.typography.headlineMedium,
+                    modifier = Modifier.padding(vertical = dimensionResource(R.dimen.padding_xsmall))
                 )
-            )
-            Text(
-                text = "${currentPlace.streetAddress}, ${currentPlace.cityLocation}",
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Text(
-                text = "Opening Hours:",
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    textDecoration = TextDecoration.Underline
+
+                Text(
+                    text = "Address:",
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        textDecoration = TextDecoration.Underline
+                    )
                 )
-            )
-            Text(
-                text = "${currentPlace.openingHours}",
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Text(
-                text = "Description:",
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    textDecoration = TextDecoration.Underline
+                Text(
+                    text = "${currentPlace.streetAddress}, ${currentPlace.cityLocation}",
+                    style = MaterialTheme.typography.bodyMedium
                 )
-            )
-            Text(
-                text = currentPlace.description,
-                style = MaterialTheme.typography.bodyMedium
-            )
+                Text(
+                    text = "Opening Hours:",
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        textDecoration = TextDecoration.Underline
+                    )
+                )
+                Text(
+                    text = "${currentPlace.openingHours}",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Text(
+                    text = "Description:",
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        textDecoration = TextDecoration.Underline
+                    )
+                )
+                Text(
+                    text = currentPlace.description,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
         }
     } else {
         Box(
@@ -211,7 +321,8 @@ fun MyCityAppDetailsPreview() {
         Surface {
             MyCityAppDetails(
                 myCityUiState = exampleUiState,
-                onBackPressed = {}
+                onBackPressed = {},
+                navigationType = MyCityNavigationType.BOTTOM_NAVIGATION
             )
         }
     }
