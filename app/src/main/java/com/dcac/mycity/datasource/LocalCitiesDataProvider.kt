@@ -11,34 +11,34 @@ object LocalCitiesDataProvider {
     val cities = listOf(
         City(
             id = 1L,
-            name = "Paris",
+            name = R.string.paris,
             imageIconId = R.drawable.icon_city_paris,
             imageResourceId = R.drawable.image_paris,
-            location = "France",
+            location = R.string.france,
             places = LocalPlacesParisDataProvider.parisPlaces
         ),
         City(
             id = 2L,
-            name = "London",
+            name = R.string.london,
             imageIconId = R.drawable.icon_city_london,
             imageResourceId = R.drawable.image_london,
-            location = "United Kingdom",
+            location = R.string.united_kingdom,
             places = LocalPlacesLondonDataProvider.londonPlaces
         ),
         City(
             id = 3L,
-            name = "Rome",
+            name = R.string.rome,
             imageIconId = R.drawable.icon_city_rome,
             imageResourceId = R.drawable.image_rome,
-            location = "Italy",
+            location = R.string.italy,
             places = LocalPlacesRomeDataProvider.romePlaces
         ),
         City(
             id = 4L,
-            name = "New York",
+            name = R.string.new_york,
             imageIconId = R.drawable.icon_city_new_york,
             imageResourceId = R.drawable.image_new_york,
-            location = "United States",
+            location = R.string.united_states,
             places = LocalPlacesNewYorkDataProvider.newYorkPlaces
         )
     )

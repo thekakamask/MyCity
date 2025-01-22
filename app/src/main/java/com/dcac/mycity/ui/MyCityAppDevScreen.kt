@@ -1,6 +1,7 @@
 package com.dcac.mycity.ui
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,22 +24,22 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dcac.mycity.R
-import com.dcac.mycity.ui.utils.MyCityNavigationType
+import com.dcac.mycity.ui.theme.MyCityTheme
+import com.dcac.mycity.ui.utils.MyCityAppNavigationType
 
 @Composable
 fun MyCityDevContent(
-    onBackPressed: () -> Unit,
-    navigationType: MyCityNavigationType,
-    modifier: Modifier = Modifier) {
+    onDevScreenAndroidBackPressed: () -> Unit,
+    navigationType: MyCityAppNavigationType) {
 
     BackHandler {
-        onBackPressed()
+        onDevScreenAndroidBackPressed()
     }
-
-    if (navigationType == MyCityNavigationType.NAVIGATION_RAIL) {
-        Row(modifier = modifier
+    AnimatedVisibility(visible = navigationType == MyCityAppNavigationType.NAVIGATION_RAIL) {
+        Row(modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = dimensionResource(R.dimen.padding_small), vertical = dimensionResource(R.dimen.padding_small)),
             horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
@@ -90,9 +91,10 @@ fun MyCityDevContent(
                 LinkIconRow()
             }
         }
-    } else {
+    }
+    AnimatedVisibility(visible = navigationType == MyCityAppNavigationType.BOTTOM_NAVIGATION) {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = dimensionResource(R.dimen.padding_medium), vertical = dimensionResource(R.dimen.padding_small)),
             verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)),
@@ -146,10 +148,9 @@ fun MyCityDevContent(
 
 @Composable
 fun LinkIconRow(
-    modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = dimensionResource(R.dimen.padding_medium)),
         verticalAlignment = Alignment.CenterVertically,
@@ -166,4 +167,16 @@ fun LinkIconRow(
             modifier = Modifier.size(40.dp)
         )
     }
+}
+
+@Composable
+@Preview
+fun MyCityAppDevScreenPreview() {
+    MyCityTheme {
+        MyCityDevContent(
+            onDevScreenAndroidBackPressed = {},
+            navigationType = MyCityAppNavigationType.BOTTOM_NAVIGATION
+        )
+    }
+
 }

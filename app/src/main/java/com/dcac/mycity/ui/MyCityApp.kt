@@ -1,8 +1,6 @@
 package com.dcac.mycity.ui
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -24,13 +22,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.dcac.mycity.R
 import com.dcac.mycity.datasource.LocalCitiesDataProvider
-import com.dcac.mycity.datasource.localPlacesCityDataProvider.LocalPlacesLondonDataProvider
+import com.dcac.mycity.datasource.LocalNavigationCategoriesContentDataProvider
+import com.dcac.mycity.datasource.localPlacesCityDataProvider.LocalPlacesParisDataProvider
 import com.dcac.mycity.model.Category
 import com.dcac.mycity.model.MyCityUiState
 import com.dcac.mycity.ui.theme.MyCityTheme
-import com.dcac.mycity.ui.utils.MyCityContentType
-import com.dcac.mycity.ui.utils.MyCityNavigationType
-import com.dcac.mycity.ui.utils.MyCityScreenEnum
+import com.dcac.mycity.ui.utils.MyCityAppNavigationType
+import com.dcac.mycity.ui.utils.MyCityAppScreenEnum
 import com.dcac.mycity.ui.utils.isLandscapeSmartphone
 
 @Composable
@@ -41,67 +39,92 @@ fun MyCityApp(
     val viewModel: MyCityViewmodel = viewModel()
     val myCityUiState = viewModel.uiState.collectAsState().value
     val backStackEntry by navController.currentBackStackEntryAsState()
-    val currentScreen = MyCityScreenEnum.valueOf(
-        backStackEntry?.destination?.route ?: MyCityScreenEnum.HomePage.name
+    val currentScreen = MyCityAppScreenEnum.valueOf(
+        backStackEntry?.destination?.route ?: MyCityAppScreenEnum.HomePage.name
     )
-    val navigationType: MyCityNavigationType
-    val contentType: MyCityContentType
+    val navigationType: MyCityAppNavigationType
+    //val contentType: MyCityAppContentType
 
     when(windowSize) {
         WindowWidthSizeClass.Compact -> {
-            navigationType = MyCityNavigationType.BOTTOM_NAVIGATION
-            contentType = MyCityContentType.LIST_ONLY
+            navigationType = MyCityAppNavigationType.BOTTOM_NAVIGATION
+            //contentType = MyCityAppContentType.LIST_ONLY
         }
         WindowWidthSizeClass.Medium -> {
-            navigationType =MyCityNavigationType.NAVIGATION_RAIL
-            contentType = MyCityContentType.LIST_ONLY
+            navigationType =MyCityAppNavigationType.NAVIGATION_RAIL
+            //contentType = MyCityAppContentType.LIST_ONLY
         }
         WindowWidthSizeClass.Expanded -> {
             val isLandscapeSmartphone = isLandscapeSmartphone()
-            if (isLandscapeSmartphone) {
-                navigationType = MyCityNavigationType.NAVIGATION_RAIL // Display rail on smartphone landscape
-                contentType = MyCityContentType.LIST_ONLY
+            navigationType = if (isLandscapeSmartphone) {
+                MyCityAppNavigationType.NAVIGATION_RAIL // Display rail on smartphone landscape
+                //contentType = MyCityAppContentType.LIST_ONLY
 
             } else {
-                navigationType = MyCityNavigationType.PERMANENT_NAVIGATION_DRAWER // Drawer for tablet
-                contentType = MyCityContentType.LIST_AND_DETAIL
+                MyCityAppNavigationType.PERMANENT_NAVIGATION_DRAWER // Drawer for tablet
+                //contentType = MyCityAppContentType.LIST_AND_DETAIL
             }
         }
         else -> {
-            navigationType = MyCityNavigationType.BOTTOM_NAVIGATION
-            contentType = MyCityContentType.LIST_ONLY
+            navigationType = MyCityAppNavigationType.BOTTOM_NAVIGATION
+            //contentType = MyCityAppContentType.LIST_ONLY
         }
     }
 
     Scaffold(
         topBar = {
-            val topBarContentDescription = stringResource(R.string.navigation_top)
-            MyCityAppTopBar(
-                myCityUiState = myCityUiState,
-                onCitySelectedClick = { viewModel.updateCurrentCity(it) },
-                onLogoClick = {
-                    viewModel.updateHomeScreenStates()
-                    navController.navigate(MyCityScreenEnum.DevPage.name)
-                              },
-                onBackButtonClick = {
-                    viewModel.resetHomeScreenStates()
-                },
-                onDevForwardClick = {
-                    navController.navigateUp()
-                    viewModel.resetHomeScreenStates()
-                },
-                isDevScreen = currentScreen == MyCityScreenEnum.DevPage,
-                modifier = Modifier
-                    .testTag(topBarContentDescription)
-                    .fillMaxWidth(),
-            )
+            AnimatedVisibility(navigationType == MyCityAppNavigationType.NAVIGATION_RAIL) {
+                val topBarContentDescription = stringResource(R.string.navigation_top)
+                MyCityAppTopBar(
+                    myCityUiState = myCityUiState,
+                    onCitySelectedClick = {
+                        viewModel.updateCurrentCity(it)},
+                    onLogoAppClick = {
+                        viewModel.devToHomeScreenStates()
+                        navController.navigate(MyCityAppScreenEnum.DevPage.name)
+                    },
+                    onBackArrowClick = {
+                        viewModel.resetHomeScreenStates()
+                    },
+                    onDevForwardArrowClick = {
+                        navController.navigateUp()
+                        viewModel.resetHomeScreenStates()
+                    },
+                    isDevScreen = currentScreen == MyCityAppScreenEnum.DevPage,
+                    modifier = Modifier
+                        .testTag(topBarContentDescription)
+                        .fillMaxWidth(),
+                )
+            }
+            AnimatedVisibility(navigationType == MyCityAppNavigationType.BOTTOM_NAVIGATION) {
+                val topBarContentDescription = stringResource(R.string.navigation_top)
+                MyCityAppTopBar(
+                    myCityUiState = myCityUiState,
+                    onCitySelectedClick = { viewModel.updateCurrentCity(it) },
+                    onLogoAppClick = {
+                        viewModel.devToHomeScreenStates()
+                        navController.navigate(MyCityAppScreenEnum.DevPage.name)
+                    },
+                    onBackArrowClick = {
+                        viewModel.resetHomeScreenStates()
+                    },
+                    onDevForwardArrowClick = {
+                        navController.navigateUp()
+                        viewModel.resetHomeScreenStates()
+                    },
+                    isDevScreen = currentScreen == MyCityAppScreenEnum.DevPage,
+                    modifier = Modifier
+                        .testTag(topBarContentDescription)
+                        .fillMaxWidth(),
+                )
+            }
         },
         bottomBar = {
-            if (navigationType == MyCityNavigationType.BOTTOM_NAVIGATION && currentScreen != MyCityScreenEnum.DevPage) {
+            AnimatedVisibility(navigationType == MyCityAppNavigationType.BOTTOM_NAVIGATION && currentScreen != MyCityAppScreenEnum.DevPage) {
                 val bottomNavigationContentDescription = stringResource(R.string.navigation_bottom)
                 MyCityAppBottomNavigationBar(
                     myCityUiState = myCityUiState,
-                    onTabPressed = {category: Category ->
+                    onCategoryTabPressed = {category: Category ->
                         viewModel.updateCurrentCategory(category)
                     },
                     modifier = Modifier
@@ -112,7 +135,7 @@ fun MyCityApp(
 
 
     ){ innerPadding ->
-        Row(
+        /*Row(
             modifier = Modifier
                 .padding(
                     start = 0.dp,
@@ -121,60 +144,98 @@ fun MyCityApp(
                     bottom = innerPadding.calculateBottomPadding(),
                 )
                 .fillMaxSize()
+        ) {*/
+        NavHost(
+            navController = navController,
+            startDestination = MyCityAppScreenEnum.HomePage.name,
+            modifier = Modifier.padding(
+                start = 0.dp,
+                top = innerPadding.calculateTopPadding(),
+                end = innerPadding.calculateRightPadding(layoutDirection = LayoutDirection.Ltr),
+                bottom = 0.dp
+            )
         ) {
-            if (navigationType == MyCityNavigationType.NAVIGATION_RAIL && currentScreen != MyCityScreenEnum.DevPage) {
-                val navigationRailContentDescription = stringResource(R.string.navigation_rail)
-                MyCityAppNavigationRail(
+            composable(route = MyCityAppScreenEnum.HomePage.name) {
+                MyCityAppHomeScreen(
                     myCityUiState = myCityUiState,
-                    onTabPressed = { category: Category ->
+                    navigationType = navigationType,
+                    currentScreen = currentScreen,
+                    onCitySelectedClick = { viewModel.updateCurrentCity(it) },
+                    onLogoAppClick = {
+                        viewModel.devToHomeScreenStates()
+                        navController.navigate(MyCityAppScreenEnum.DevPage.name)
+                    },
+                    onCategoryTabPressed = { category: Category ->
                         viewModel.updateCurrentCategory(category)
                     },
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .testTag(navigationRailContentDescription)
+                    onPlaceClick = { viewModel.updateDetailsScreenState(it) },
+                    onDetailScreenAndroidBackPressed = { viewModel.resetHomeScreenStates() },
                 )
             }
-            NavHost(
-                navController = navController,
-                startDestination = MyCityScreenEnum.HomePage.name,
-                modifier = Modifier
-            ) {
-                composable(route = MyCityScreenEnum.HomePage.name) {
-                    MyCityAppScreen(
-                        myCityUiState = myCityUiState,
-                        navigationType = navigationType,
-                        contentType = contentType,
-                        onPlaceClick = { viewModel.updateDetailsScreenState(it) },
-                        onDetailScreenBackPressed = { viewModel.resetHomeScreenStates() },
-                    )
-                }
-                composable(route = MyCityScreenEnum.DevPage.name) {
-                    MyCityDevContent(
-                        onBackPressed = {navController.navigateUp()
-                            viewModel.resetHomeScreenStates()},
-                        navigationType = navigationType,
-                        modifier = Modifier)
-                }
+            composable(route = MyCityAppScreenEnum.DevPage.name) {
+                MyCityDevContent(
+                    onDevScreenAndroidBackPressed = {navController.navigateUp()
+                        viewModel.resetHomeScreenStates()},
+                    navigationType = navigationType)
             }
         }
     }
 }
 
-@Preview
 @Composable
-fun MyCityAppScreenPreview() {
+@Preview
+fun MyCityAppPreview() {
     MyCityTheme {
-        val myCityUiState = MyCityUiState(
+        val exampleUiState = MyCityUiState(
+            availableCities = LocalCitiesDataProvider.cities.associateWith { it.places },
             currentCity = LocalCitiesDataProvider.cities[0],
+            navigationCategoriesContent = LocalNavigationCategoriesContentDataProvider.navigationCategoriesContentLists,
             currentCategory = Category.museum,
-            places = LocalPlacesLondonDataProvider.londonPlaces)
-        MyCityAppScreen(
-            myCityUiState = myCityUiState,
-            onPlaceClick = {},
-            onDetailScreenBackPressed = {},
-            navigationType = MyCityNavigationType.BOTTOM_NAVIGATION,
-            contentType = MyCityContentType.LIST_ONLY
+            places = LocalPlacesParisDataProvider.parisPlaces,
         )
+        Scaffold(
+            topBar = {
+                MyCityAppTopBar(
+                    myCityUiState = exampleUiState,
+                    onCitySelectedClick = { /* No-op for Preview */ },
+                    onLogoAppClick = { /* No-op for Preview */ },
+                    onBackArrowClick = { /* No-op for Preview */ },
+                    onDevForwardArrowClick = { /* No-op for Preview */ },
+                    isDevScreen = false,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            },
+            bottomBar = {
+                MyCityAppBottomNavigationBar(
+                    myCityUiState = exampleUiState,
+                    onCategoryTabPressed = { /* No-op for Preview */ },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        ) { innerPadding ->
+            NavHost(
+                navController = rememberNavController(),
+                startDestination = MyCityAppScreenEnum.HomePage.name,
+                modifier = Modifier.padding(
+                    start = 0.dp,
+                    top = innerPadding.calculateTopPadding(),
+                    end = innerPadding.calculateRightPadding(layoutDirection = LayoutDirection.Ltr),
+                    bottom = 0.dp)
+            ) {
+                composable(route = MyCityAppScreenEnum.HomePage.name) {
+                    MyCityAppHomeScreen(
+                        myCityUiState = exampleUiState,
+                        navigationType = MyCityAppNavigationType.BOTTOM_NAVIGATION,
+                        currentScreen = MyCityAppScreenEnum.HomePage,
+                        onCitySelectedClick = { /* No-op for Preview */ },
+                        onLogoAppClick = { /* No-op for Preview */ },
+                        onCategoryTabPressed = { /* No-op for Preview */ },
+                        onPlaceClick = { /* No-op for Preview */ },
+                        onDetailScreenAndroidBackPressed = { /* No-op for Preview */ }
+                    )
+                }
+            }
+        }
     }
 }
 

@@ -2,6 +2,7 @@ package com.dcac.mycity.ui
 
 import androidx.lifecycle.ViewModel
 import com.dcac.mycity.datasource.LocalCitiesDataProvider
+import com.dcac.mycity.datasource.LocalNavigationCategoriesContentDataProvider
 import com.dcac.mycity.model.Category
 import com.dcac.mycity.model.City
 import com.dcac.mycity.model.MyCityUiState
@@ -24,6 +25,8 @@ object MyCityViewmodel : ViewModel() {
         // Load cities and associates them with their places
         val availableCities = LocalCitiesDataProvider.cities.associateWith { it.places }
 
+        val navigationCategoriesContent = LocalNavigationCategoriesContentDataProvider.navigationCategoriesContentLists
+
         val currentCity = _uiState.value.currentCity
         val currentCategory = _uiState.value.currentCategory
         val places = currentCity.places.filter { it.category == currentCategory }
@@ -33,7 +36,8 @@ object MyCityViewmodel : ViewModel() {
             availableCities = availableCities,
             currentCity = currentCity,
             currentCategory = currentCategory,
-            places = places
+            places = places,
+            navigationCategoriesContent = navigationCategoriesContent
         )
     }
 
@@ -42,18 +46,18 @@ object MyCityViewmodel : ViewModel() {
             currentUiState.copy(
                 currentCity = selectedCity,
                 places = selectedCity.places.filter { it.category == currentUiState.currentCategory },
-                isShowingHomepage = true,
+                isShowingDetailPage = false,
                 currentPlace = null
             )
         }
     }
 
     fun updateCurrentCategory(selectedCategory: Category) {
-        _uiState.update {
+        _uiState.update { it ->
             it.copy(
                 currentCategory = selectedCategory,
                 places = it.currentCity.places.filter { it.category == selectedCategory },
-                isShowingHomepage = true,
+                isShowingDetailPage = false,
                 currentPlace = null
             )
         }
@@ -62,7 +66,7 @@ object MyCityViewmodel : ViewModel() {
     fun updateDetailsScreenState(place: Place) {
         _uiState.update {
             it.copy(
-                isShowingHomepage = false,
+                isShowingDetailPage = true,
                 currentPlace = place
             )
 
@@ -73,29 +77,18 @@ object MyCityViewmodel : ViewModel() {
     fun resetHomeScreenStates() {
         _uiState.update {
             it.copy(
-                isShowingHomepage = true,
+                isShowingDetailPage = false,
                 currentPlace = null
             )
         }
     }
 
-    fun updateHomeScreenStates() {
+    fun devToHomeScreenStates() {
         _uiState.update {
             it.copy(
-                isShowingHomepage = false,
+                isShowingDetailPage = false,
                 currentPlace = null
             )
-        }
-    }
-
-    // android back button
-    fun handleBackNavigation(): Boolean {
-        return if (!_uiState.value.isShowingHomepage) {
-            // if not in home page, go back to home page
-            resetHomeScreenStates()
-            true // handle navigation
-        } else {
-            false // the system handle return (closing app)
         }
     }
 

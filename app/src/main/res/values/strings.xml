@@ -1,29 +1,45 @@
 <resources>
     <string name="app_name">MyCity</string>
 
+<!--    MyCityAppScreenEnum-->
     <string name="home_page">"Home page"</string>
-
     <string name="dev_page">"Dev page"</string>
+
+<!--    DevPage-->
     <string name="dev_image">"Dev image"</string>
     <string name="dev_name">"Antoine de Chau"</string>
     <string name="dev_city">"Paris"</string>
     <string name="languages">"Kotlin and Java"</string>
     <string name="logo_linked_in">"Logo linked in"</string>
     <string name="logo_github">"Logo github"</string>
+
+<!--    AppBar-->
+    <string name="logo_text">Logo text</string>
+    <string name="navigation_top">Top bar</string>
+    <string name="navigation_bottom">Navigation bottom</string>
+    <string name="navigation_rail">Navigation rail</string>
+    <string name="navigation_drawer">Navigation drawer</string>
+    <string name="back_button">Back</string>
     <string name="dev_screen_forward_button">"Dev screen forward button"</string>">
 
-    <string name="logo_text">Logo text</string>
-    <string name="logo_image_detailed">Logo image detailed</string>
-
+<!--    Category-->
     <string name="museum">Museum</string>
     <string name="maul">Maul</string>
     <string name="bar">Bar</string>
     <string name="restaurant">Restaurant</string>
     <string name="nightclub">Nightclub</string>
 
-    <string name="navigation_top">Top bar</string>
-    <string name="navigation_bottom">Navigation bottom</string>
-    <string name="navigation_rail">Navigation rail</string>
-    <string name="back_button">Back</string>
+    <!--    Cities-->
+    <string name="rome">Rome</string>
+    <string name="new_york">New York</string>
+    <string name="united_states">United States</string>
+    <string name="london">London</string>
+    <string name="united_kingdom">United Kingdom</string>
+    <string name="france">France</string>
+    <string name="paris">Paris</string>
+    <string name="italy">Italy</string>
+
+
+
 
 </resources>

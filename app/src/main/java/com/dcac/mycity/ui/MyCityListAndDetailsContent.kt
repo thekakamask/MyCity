@@ -1,12 +1,12 @@
 package com.dcac.mycity.ui
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -18,38 +18,62 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dcac.mycity.R
 import com.dcac.mycity.datasource.LocalCitiesDataProvider
+import com.dcac.mycity.model.Category
 import com.dcac.mycity.model.MyCityUiState
 import com.dcac.mycity.model.Place
 import com.dcac.mycity.ui.theme.MyCityTheme
-import com.dcac.mycity.ui.utils.MyCityNavigationType
+import com.dcac.mycity.ui.utils.MyCityAppNavigationType
 
+@Composable
+fun MyCityAppListAndDetails(
+    myCityUiState: MyCityUiState,
+    navigationType: MyCityAppNavigationType,
+    onPlaceClick: (Place) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ) {
+        MyCityAppList(
+            myCityUiState = myCityUiState,
+            navigationType = navigationType,
+            onPlaceClick = onPlaceClick,
+        )
+        MyCityAppDetails(
+            myCityUiState = myCityUiState,
+            onDetailScreenAndroidBackPressed = {},
+            navigationType = navigationType,
+            onCategoryTabPressed = {}
+
+        )
+    }
+
+}
 @Composable
 fun MyCityAppList(
     myCityUiState: MyCityUiState,
-    navigationType: MyCityNavigationType,
+    navigationType: MyCityAppNavigationType,
     onPlaceClick: (Place) -> Unit,
-    modifier: Modifier = Modifier
 ) {
 
     LazyColumn {
@@ -60,10 +84,10 @@ fun MyCityAppList(
                     navigationType = navigationType,
                     onPlaceClick = onPlaceClick
                 )
-                Divider(
-                    color = Color.LightGray,
+                HorizontalDivider(
+                    modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_medium)),
                     thickness = 1.dp,
-                    modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_medium))
+                    color = Color.LightGray
                 )
             }
         }
@@ -73,13 +97,12 @@ fun MyCityAppList(
 @Composable
 fun MyCityAppListItem(
     place: Place,
-    navigationType: MyCityNavigationType,
-    onPlaceClick: (Place) -> Unit,
-    modifier: Modifier = Modifier
+    navigationType: MyCityAppNavigationType,
+    onPlaceClick: (Place) -> Unit
 ) {
-    if (navigationType == MyCityNavigationType.NAVIGATION_RAIL) {
+    AnimatedVisibility(navigationType == MyCityAppNavigationType.NAVIGATION_RAIL) {
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .clickable { onPlaceClick(place) }
                 .padding(dimensionResource(R.dimen.padding_small)),
@@ -121,9 +144,10 @@ fun MyCityAppListItem(
                 )
             }
         }
-    } else {
+    }
+    AnimatedVisibility(navigationType == MyCityAppNavigationType.BOTTOM_NAVIGATION) {
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .clickable { onPlaceClick(place) }
                 .padding(dimensionResource(R.dimen.padding_medium)),
@@ -171,18 +195,29 @@ fun MyCityAppListItem(
 @Composable
 fun MyCityAppDetails(
     myCityUiState: MyCityUiState,
-    navigationType: MyCityNavigationType,
-    onBackPressed: () -> Unit,
-    modifier: Modifier = Modifier){
+    navigationType: MyCityAppNavigationType,
+    onCategoryTabPressed: ((Category) -> Unit),
+    onDetailScreenAndroidBackPressed: () -> Unit){
 
     BackHandler {
-        onBackPressed()
+        onDetailScreenAndroidBackPressed()
     }
 
     val currentPlace = myCityUiState.currentPlace
+
+    AnimatedVisibility(visible = navigationType == MyCityAppNavigationType.NAVIGATION_RAIL) {
+        val navigationRailContentDescription = stringResource(R.string.navigation_rail)
+        MyCityAppNavigationRail(
+            myCityUiState = myCityUiState,
+            onCategoryTabPressed = onCategoryTabPressed,
+            modifier = Modifier
+                .testTag(navigationRailContentDescription)
+        )
+    }
+
     if (currentPlace != null) {
-        if (navigationType == MyCityNavigationType.NAVIGATION_RAIL) {
-            Row(modifier = modifier
+        AnimatedVisibility(visible = navigationType == MyCityAppNavigationType.NAVIGATION_RAIL) {
+            Row(modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = dimensionResource(R.dimen.padding_small),
                     vertical = dimensionResource(R.dimen.padding_small)),
@@ -224,7 +259,7 @@ fun MyCityAppDetails(
                         )
                     )
                     Text(
-                        text = "${currentPlace.openingHours}",
+                        text = currentPlace.openingHours,
                         style = MaterialTheme.typography.bodyMedium
                     )
                     Text(
@@ -239,9 +274,10 @@ fun MyCityAppDetails(
                     )
                 }
             }
-        } else {
+        }
+        AnimatedVisibility(visible = navigationType == MyCityAppNavigationType.BOTTOM_NAVIGATION) {
             Column(
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = dimensionResource(R.dimen.padding_medium),
                         vertical = dimensionResource(R.dimen.padding_small)),
@@ -280,7 +316,7 @@ fun MyCityAppDetails(
                     )
                 )
                 Text(
-                    text = "${currentPlace.openingHours}",
+                    text = currentPlace.openingHours,
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
@@ -321,8 +357,9 @@ fun MyCityAppDetailsPreview() {
         Surface {
             MyCityAppDetails(
                 myCityUiState = exampleUiState,
-                onBackPressed = {},
-                navigationType = MyCityNavigationType.BOTTOM_NAVIGATION
+                onDetailScreenAndroidBackPressed = {},
+                navigationType = MyCityAppNavigationType.BOTTOM_NAVIGATION,
+                onCategoryTabPressed = {}
             )
         }
     }
