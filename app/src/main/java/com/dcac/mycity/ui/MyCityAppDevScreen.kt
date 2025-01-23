@@ -1,8 +1,11 @@
 package com.dcac.mycity.ui
 
+import android.content.Intent
+import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,10 +19,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -206,6 +211,15 @@ fun MyCityDevContent(
 @Composable
 fun LinkIconRow(navigationType: MyCityAppNavigationType
 ) {
+    val context = LocalContext.current
+
+    val openUrl: (String) -> Unit = remember {
+        { url ->
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            context.startActivity(intent)
+        }
+    }
+
     if (navigationType == MyCityAppNavigationType.PERMANENT_NAVIGATION_DRAWER) {
         Row(
             modifier = Modifier
@@ -216,12 +230,19 @@ fun LinkIconRow(navigationType: MyCityAppNavigationType
             Icon(
                 painter = painterResource(id = R.drawable.logo_linked_in),
                 contentDescription = stringResource(R.string.logo_linked_in),
-                modifier = Modifier.size(100.dp)
+                modifier = Modifier
+                    .size(100.dp)
+                    .clickable {
+                        openUrl("https://fr.linkedin.com/in/antoine-de-chaunac-807a8257")
+                    }
             )
             Icon(
                 painter = painterResource(id = R.drawable.logo_github),
                 contentDescription = stringResource(R.string.logo_github),
                 modifier = Modifier.size(100.dp)
+                    .clickable {
+                        openUrl("https://github.com/thekakamask")
+                    }
             )
         }
     } else {
@@ -235,12 +256,20 @@ fun LinkIconRow(navigationType: MyCityAppNavigationType
             Icon(
                 painter = painterResource(id = R.drawable.logo_linked_in),
                 contentDescription = stringResource(R.string.logo_linked_in),
-                modifier = Modifier.size(40.dp)
+                modifier = Modifier
+                    .size(40.dp)
+                    .clickable {
+                        openUrl("https://fr.linkedin.com/in/antoine-de-chaunac-807a8257")
+                    }
             )
             Icon(
                 painter = painterResource(id = R.drawable.logo_github),
                 contentDescription = stringResource(R.string.logo_github),
-                modifier = Modifier.size(40.dp)
+                modifier = Modifier
+                    .size(40.dp)
+                    .clickable {
+                        openUrl("https://github.com/thekakamask")
+                    }
             )
         }
     }

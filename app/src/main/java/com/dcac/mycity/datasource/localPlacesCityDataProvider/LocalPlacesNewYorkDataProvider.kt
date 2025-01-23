@@ -15,7 +15,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "1000 5th Ave",
             cityLocation = "New York, NY 10028",
             openingHours = "10:00 - 17:30",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         Place(
             id = 2L,
@@ -25,7 +25,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "11 W 53rd St",
             cityLocation = "New York, NY 10019",
             openingHours = "10:30 - 17:30",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         Place(
             id = 3L,
@@ -35,7 +35,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "200 Central Park West",
             cityLocation = "New York, NY 10024",
             openingHours = "10:00 - 17:30",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         Place(
             id = 4L,
@@ -45,7 +45,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "99 Gansevoort St",
             cityLocation = "New York, NY 10014",
             openingHours = "10:30 - 18:00",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         Place(
             id = 5L,
@@ -55,7 +55,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "1071 5th Ave",
             cityLocation = "New York, NY 10128",
             openingHours = "11:00 - 18:00",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
 
         // Malls
@@ -67,7 +67,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "185 Greenwich St",
             cityLocation = "New York, NY 10007",
             openingHours = "10:00 - 20:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         Place(
             id = 7L,
@@ -77,7 +77,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "10 Columbus Cir",
             cityLocation = "New York, NY 10019",
             openingHours = "10:00 - 21:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         Place(
             id = 8L,
@@ -87,7 +87,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "100 W 33rd St",
             cityLocation = "New York, NY 10001",
             openingHours = "10:00 - 21:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         Place(
             id = 9L,
@@ -97,7 +97,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "230 Vesey St",
             cityLocation = "New York, NY 10281",
             openingHours = "10:00 - 20:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         Place(
             id = 10L,
@@ -107,7 +107,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "90-15 Queens Blvd",
             cityLocation = "Elmhurst, NY 11373",
             openingHours = "10:00 - 21:30",
-            category = Category.maul
+            category = Category.MAUL
         ),
 
         // Restaurants
@@ -119,7 +119,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "205 E Houston St",
             cityLocation = "New York, NY 10002",
             openingHours = "08:00 - 22:45",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         Place(
             id = 12L,
@@ -129,7 +129,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "155 W 51st St",
             cityLocation = "New York, NY 10019",
             openingHours = "12:00 - 14:30, 17:30 - 22:30",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         Place(
             id = 13L,
@@ -139,7 +139,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "Madison Square Park",
             cityLocation = "New York, NY 10010",
             openingHours = "11:00 - 22:00",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         Place(
             id = 14L,
@@ -149,7 +149,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "178 Broadway",
             cityLocation = "Brooklyn, NY 11211",
             openingHours = "12:00 - 21:30",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         Place(
             id = 15L,
@@ -159,7 +159,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "171 1st Avenue",
             cityLocation = "New York, NY 10003",
             openingHours = "12:00 - 22:00",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
 
         // Bars
@@ -171,7 +171,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "30 Water St",
             cityLocation = "New York, NY 10004",
             openingHours = "11:00 - 02:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         Place(
             id = 17L,
@@ -181,7 +181,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "113 St Marks Pl",
             cityLocation = "New York, NY 10009",
             openingHours = "17:00 - 02:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         Place(
             id = 18L,
@@ -191,7 +191,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "510 Hudson St",
             cityLocation = "New York, NY 10014",
             openingHours = "17:00 - 04:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         Place(
             id = 19L,
@@ -201,7 +201,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "134 Eldridge St",
             cityLocation = "New York, NY 10002",
             openingHours = "18:00 - 02:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         Place(
             id = 20L,
@@ -211,7 +211,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "15 Vanderbilt Ave",
             cityLocation = "New York, NY 10017",
             openingHours = "12:00 - 00:00",
-            category = Category.bar
+            category = Category.BAR
         ),
 
         // Nightclubs
@@ -223,7 +223,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "289 10th Ave",
             cityLocation = "New York, NY 10001",
             openingHours = "23:00 - 04:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         ),
         Place(
             id = 22L,
@@ -233,7 +233,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "39 E 58th St",
             cityLocation = "New York, NY 10022",
             openingHours = "23:00 - 04:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         ),
         Place(
             id = 23L,
@@ -243,7 +243,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "125 E 11th St",
             cityLocation = "New York, NY 10003",
             openingHours = "22:00 - 04:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         ),
         Place(
             id = 24L,
@@ -253,7 +253,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "74 Wythe Ave",
             cityLocation = "Brooklyn, NY 11249",
             openingHours = "22:00 - 06:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         ),
         Place(
             id = 25L,
@@ -263,7 +263,7 @@ object LocalPlacesNewYorkDataProvider {
             streetAddress = "453 W 17th St",
             cityLocation = "New York, NY 10011",
             openingHours = "23:00 - 04:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         )
     )
 }

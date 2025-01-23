@@ -46,7 +46,7 @@ fun MyCityApp(
     val myCityUiState = viewModel.uiState.collectAsState().value
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentScreen = MyCityAppScreenEnum.valueOf(
-        backStackEntry?.destination?.route ?: MyCityAppScreenEnum.HomePage.name
+        backStackEntry?.destination?.route ?: MyCityAppScreenEnum.HOME_PAGE.name
     )
     val navigationType: MyCityAppNavigationType
     val contentType: MyCityAppContentType
@@ -87,7 +87,7 @@ fun MyCityApp(
                         viewModel.updateCurrentCity(it)},
                     onLogoAppClick = {
                         viewModel.resetHomeScreenStates()
-                        navController.navigate(MyCityAppScreenEnum.DevPage.name){
+                        navController.navigate(MyCityAppScreenEnum.DEV_PAGE.name){
                             launchSingleTop = true
                         }
                     },
@@ -98,7 +98,7 @@ fun MyCityApp(
                         navController.navigateUp()
                         viewModel.resetHomeScreenStates()
                     },
-                    isDevScreen = currentScreen == MyCityAppScreenEnum.DevPage,
+                    isDevScreen = currentScreen == MyCityAppScreenEnum.DEV_PAGE,
                     modifier = Modifier
                         .testTag(topBarContentDescription)
                         .fillMaxWidth(),
@@ -111,7 +111,7 @@ fun MyCityApp(
                     onCitySelectedClick = { viewModel.updateCurrentCity(it) },
                     onLogoAppClick = {
                         viewModel.resetHomeScreenStates()
-                        navController.navigate(MyCityAppScreenEnum.DevPage.name){
+                        navController.navigate(MyCityAppScreenEnum.DEV_PAGE.name){
                             launchSingleTop = true
                         }
                     },
@@ -122,7 +122,7 @@ fun MyCityApp(
                         navController.navigateUp()
                         viewModel.resetHomeScreenStates()
                     },
-                    isDevScreen = currentScreen == MyCityAppScreenEnum.DevPage,
+                    isDevScreen = currentScreen == MyCityAppScreenEnum.DEV_PAGE,
                     modifier = Modifier
                         .testTag(topBarContentDescription)
                         .fillMaxWidth(),
@@ -130,7 +130,7 @@ fun MyCityApp(
             }
         },
         bottomBar = {
-            AnimatedVisibility(navigationType == MyCityAppNavigationType.BOTTOM_NAVIGATION && currentScreen != MyCityAppScreenEnum.DevPage) {
+            AnimatedVisibility(navigationType == MyCityAppNavigationType.BOTTOM_NAVIGATION && currentScreen != MyCityAppScreenEnum.DEV_PAGE) {
                 val bottomNavigationContentDescription = stringResource(R.string.navigation_bottom)
                 MyCityAppBottomNavigationBar(
                     myCityUiState = myCityUiState,
@@ -153,17 +153,17 @@ fun MyCityApp(
                     onCitySelectedClick = { viewModel.updateCurrentCity(it) },
                     onCategoryTabPressed = {
                         viewModel.updateCurrentCategory(it)
-                        if(currentScreen==MyCityAppScreenEnum.DevPage){
+                        if(currentScreen==MyCityAppScreenEnum.DEV_PAGE){
                             navController.navigateUp()
                         }
                                            },
                     onLogoAppClick = {
-                        navController.navigate(MyCityAppScreenEnum.DevPage.name){
+                        navController.navigate(MyCityAppScreenEnum.DEV_PAGE.name){
                             launchSingleTop = true
                         }
                     },
                     onDevForwardArrowClick = { navController.navigateUp() },
-                    isDevScreen = currentScreen == MyCityAppScreenEnum.DevPage,
+                    isDevScreen = currentScreen == MyCityAppScreenEnum.DEV_PAGE,
                     modifier = Modifier
                         .weight(0.2f)
                         .fillMaxHeight()
@@ -225,9 +225,9 @@ fun MyCityNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = MyCityAppScreenEnum.HomePage.name
+        startDestination = MyCityAppScreenEnum.HOME_PAGE.name
     ) {
-        composable(route = MyCityAppScreenEnum.HomePage.name) {
+        composable(route = MyCityAppScreenEnum.HOME_PAGE.name) {
             MyCityAppHomeScreen(
                 myCityUiState = myCityUiState,
                 contentType = contentType,
@@ -237,7 +237,7 @@ fun MyCityNavHost(
                 onDetailScreenAndroidBackPressed = onDetailScreenAndroidBackPressed,
             )
         }
-        composable(route = MyCityAppScreenEnum.DevPage.name) {
+        composable(route = MyCityAppScreenEnum.DEV_PAGE.name) {
             MyCityDevContent(
                 onDevScreenAndroidBackPressed = {
                     navController.navigateUp()
@@ -257,7 +257,7 @@ fun MyCityAppPreview() {
             availableCities = LocalCitiesDataProvider.cities.associateWith { it.places },
             currentCity = LocalCitiesDataProvider.cities[0],
             navigationCategoriesContent = LocalNavigationCategoriesContentDataProvider.navigationCategoriesContentLists,
-            currentCategory = Category.museum,
+            currentCategory = Category.MUSEUM,
             places = LocalPlacesParisDataProvider.parisPlaces,
         )
         Scaffold(
@@ -282,14 +282,14 @@ fun MyCityAppPreview() {
         ) { innerPadding ->
             NavHost(
                 navController = rememberNavController(),
-                startDestination = MyCityAppScreenEnum.HomePage.name,
+                startDestination = MyCityAppScreenEnum.HOME_PAGE.name,
                 modifier = Modifier.padding(
                     start = 0.dp,
                     top = innerPadding.calculateTopPadding(),
                     end = innerPadding.calculateRightPadding(layoutDirection = LayoutDirection.Ltr),
                     bottom = 0.dp)
             ) {
-                composable(route = MyCityAppScreenEnum.HomePage.name) {
+                composable(route = MyCityAppScreenEnum.HOME_PAGE.name) {
                     MyCityAppHomeScreen(
                         myCityUiState = exampleUiState,
                         navigationType = MyCityAppNavigationType.BOTTOM_NAVIGATION,

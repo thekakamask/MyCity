@@ -15,7 +15,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "Rue de Rivoli",
             cityLocation = "75001 Paris",
             openingHours = "09:00 - 18:00",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         Place(
             id = 2L,
@@ -25,7 +25,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "1 Rue de la Légion d'Honneur",
             cityLocation = "75007 Paris",
             openingHours = "09:30 - 18:00",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         Place(
             id = 3L,
@@ -35,7 +35,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "Place Georges-Pompidou",
             cityLocation = "75004 Paris",
             openingHours = "11:00 - 21:00",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         Place(
             id = 4L,
@@ -45,7 +45,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "77 Rue de Varenne",
             cityLocation = "75007 Paris",
             openingHours = "10:00 - 18:30",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         Place(
             id = 5L,
@@ -55,7 +55,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "Jardin Tuileries",
             cityLocation = "75001 Paris",
             openingHours = "09:00 - 18:00",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         // Malls
         Place(
@@ -66,7 +66,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "101 Porte Berger",
             cityLocation = "75001 Paris",
             openingHours = "10:00 - 20:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         Place(
             id = 7L,
@@ -76,7 +76,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "99 Rue de Rivoli",
             cityLocation = "75001 Paris",
             openingHours = "10:00 - 19:30",
-            category = Category.maul
+            category = Category.MAUL
         ),
         Place(
             id = 8L,
@@ -86,7 +86,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "40 Boulevard Haussmann",
             cityLocation = "75009 Paris",
             openingHours = "09:30 - 20:30",
-            category = Category.maul
+            category = Category.MAUL
         ),
         Place(
             id = 9L,
@@ -96,7 +96,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "Cour Saint-Émilion",
             cityLocation = "75012 Paris",
             openingHours = "10:00 - 22:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         Place(
             id = 10L,
@@ -106,7 +106,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "24 Rue de Sèvres",
             cityLocation = "75007 Paris",
             openingHours = "10:00 - 20:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         // Restaurants
         Place(
@@ -117,7 +117,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "62 Rue Caulaincourt",
             cityLocation = "75018 Paris",
             openingHours = "12:00 - 14:30, 19:00 - 2:00",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         Place(
             id = 17L,
@@ -127,7 +127,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "11 Rue Brochant",
             cityLocation = "75017 Paris",
             openingHours = "11:30 - 14:30, 19:00 - 22:30",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         Place(
             id = 18L,
@@ -137,7 +137,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "27 Rue de Richelieu",
             cityLocation = "75001 Paris",
             openingHours = "12:00 - 14:00, 19:30 - 23:00",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         Place(
             id = 19L,
@@ -147,7 +147,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "15 Rue Caulaincourt",
             cityLocation = "75018 Paris",
             openingHours = "19:30 - 21:30",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         Place(
             id = 20L,
@@ -157,7 +157,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "18 Rue La Boétie",
             cityLocation = "75008 Paris",
             openingHours = "12:00 - 14:30, 19:00 - 22:30",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         // Bars
         Place(
@@ -168,7 +168,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "59 Rue Ramey",
             cityLocation = "75018 Paris",
             openingHours = "16:00 - 02:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         Place(
             id = 12L,
@@ -178,7 +178,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "22 Rue de La Jonquière",
             cityLocation = "75017 Paris",
             openingHours = "18:00 - 02:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         Place(
             id = 13L,
@@ -188,7 +188,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "4 Cité Véron",
             cityLocation = "75018 Paris",
             openingHours = "18:00 - 02:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         Place(
             id = 14L,
@@ -198,7 +198,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "84 Quai de Jemmapes",
             cityLocation = "75010 Paris",
             openingHours = "17:00 - 02:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         Place(
             id = 15L,
@@ -208,7 +208,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "14 Rue Crespin du Gast",
             cityLocation = "75011 Paris",
             openingHours = "18:00 - 01:30",
-            category = Category.bar
+            category = Category.BAR
         ),
         // Nightclubs
         Place(
@@ -219,7 +219,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "5 Boulevard Poissonnière",
             cityLocation = "75002 Paris",
             openingHours = "23:30 - 06:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         ),
         Place(
             id = 22L,
@@ -229,7 +229,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "90 Boulevard de Clichy",
             cityLocation = "75018 Paris",
             openingHours = "23:00 - 06:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         ),
         Place(
             id = 23L,
@@ -239,7 +239,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "19-21 Rue Boyer",
             cityLocation = "75020 Paris",
             openingHours = "20:00 - 05:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         ),
         Place(
             id = 24L,
@@ -249,7 +249,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "142 Rue Montmartre",
             cityLocation = "75002 Paris",
             openingHours = "22:30 - 05:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         ),
         Place(
             id = 25L,
@@ -259,7 +259,7 @@ object LocalPlacesParisDataProvider {
             streetAddress = "144 Rue Montmartre",
             cityLocation = "75002 Paris",
             openingHours = "18:00 - 04:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         )
     )
 }

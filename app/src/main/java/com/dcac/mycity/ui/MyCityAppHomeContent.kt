@@ -32,7 +32,6 @@ import com.dcac.mycity.model.Category
 import com.dcac.mycity.model.MyCityUiState
 import com.dcac.mycity.model.Place
 import com.dcac.mycity.ui.theme.MyCityTheme
-import com.dcac.mycity.ui.utils.MyCityAppContentType
 import com.dcac.mycity.ui.utils.MyCityAppNavigationType
 
 @Composable
@@ -140,7 +139,7 @@ fun MyCityAppContentPreview() {
     MyCityTheme {
         val myCityUiState = MyCityUiState(
             currentCity = LocalCitiesDataProvider.cities[0],
-            currentCategory = Category.museum,
+            currentCategory = Category.MUSEUM,
             places = LocalPlacesLondonDataProvider.londonPlaces)
         MyCityAppContent(
             myCityUiState = myCityUiState,

@@ -19,7 +19,7 @@
          - **BottomBar** for smartphone in portrait.
          - **NavigationRail** for smartphone in landscape.
          - **Navigation Drawer** for tablet.
-      - 🟢 **IN PROGRESS** **Developper page**:
+      - ✅ **DONE** **Developper page**:
          - Display developper informations.
       - Built with Jetpack Compose for a declarative user interface.
       - Integrated with Material 3 for an accessible and contemporary design.
@@ -72,7 +72,7 @@
    - **ui.components**:
       - **MyCityApp.kt**: Main entry point of the app managing the scaffold and navigation.
       - **MyCityAppBar.kt**: Composable for the bar with dynamic content (e.g., logo, back button, or menu).
-      - **MyCityAppHomeScreen.kt**: Displays navigation drawer and detail pages.
+      - **MyCityAppHomeScreen.kt**: Displays list and details elements.
       - **MyCityAppHomeContent.kt**: Displays the list content.
       - **MyCityListAndDetailsContent.kt**: Handles list and details page displaying.
       - **MyCityDevScreen.kt**: Provides a page for developer information.

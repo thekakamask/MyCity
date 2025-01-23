@@ -37,7 +37,7 @@ fun calculateLandscapeSafePadding(): PaddingValues {
 // Helper function to check if the device is in landscape mode
 @Composable
 fun isLandscape(): Boolean {
-    val configuration = androidx.compose.ui.platform.LocalConfiguration.current
+    val configuration = LocalConfiguration.current
     return configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
 }
 

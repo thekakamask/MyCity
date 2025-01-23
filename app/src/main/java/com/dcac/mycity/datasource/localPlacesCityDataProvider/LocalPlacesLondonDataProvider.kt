@@ -15,7 +15,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "Great Russell St",
             cityLocation = "London WC1B 3DG",
             openingHours = "10:00 - 17:30",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         Place(
             id = 2L,
@@ -25,7 +25,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "Trafalgar Square",
             cityLocation = "London WC2N 5DN",
             openingHours = "10:00 - 18:00",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         Place(
             id = 3L,
@@ -35,7 +35,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "Cromwell Rd, South Kensington",
             cityLocation = "London SW7 5BD",
             openingHours = "10:00 - 17:50",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         Place(
             id = 4L,
@@ -45,7 +45,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "Bankside",
             cityLocation = "London SE1 9TG",
             openingHours = "10:00 - 18:00",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         Place(
             id = 5L,
@@ -55,7 +55,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "Cromwell Rd",
             cityLocation = "London SW7 2RL",
             openingHours = "10:00 - 17:45",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         // Malls
         Place(
@@ -66,7 +66,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "Ariel Way",
             cityLocation = "London W12 7GF",
             openingHours = "10:00 - 22:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         Place(
             id = 7L,
@@ -76,7 +76,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "Canada Square",
             cityLocation = "London E14 5AB",
             openingHours = "10:00 - 21:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         Place(
             id = 8L,
@@ -86,7 +86,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "1 New Change",
             cityLocation = "London EC4M 9AF",
             openingHours = "10:00 - 20:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         Place(
             id = 9L,
@@ -96,7 +96,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "Prince Charles Dr",
             cityLocation = "London NW4 3FP",
             openingHours = "10:00 - 20:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         Place(
             id = 10L,
@@ -106,7 +106,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "Royal Exchange",
             cityLocation = "London EC3V 3DG",
             openingHours = "10:00 - 19:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         // Restaurants
         Place(
@@ -117,7 +117,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "12 Upper St Martin's Ln",
             cityLocation = "London WC2H 9FB",
             openingHours = "08:00 - 23:00",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         Place(
             id = 12L,
@@ -127,7 +127,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "9 Conduit St",
             cityLocation = "London W1S 2XG",
             openingHours = "12:00 - 00:00",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         Place(
             id = 13L,
@@ -137,7 +137,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "11 Langley St",
             cityLocation = "London WC2H 9JG",
             openingHours = "12:00 - 23:00",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         Place(
             id = 14L,
@@ -147,7 +147,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "42 Albemarle St",
             cityLocation = "London W1S 4JH",
             openingHours = "12:00 - 14:30, 18:00 - 22:30",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         Place(
             id = 15L,
@@ -157,7 +157,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "127 Ledbury Rd",
             cityLocation = "London W11 2AQ",
             openingHours = "12:00 - 14:30, 19:00 - 21:30",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         // Bars
         Place(
@@ -168,7 +168,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "129 City Rd",
             cityLocation = "London EC1V 1JB",
             openingHours = "17:00 - 01:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         Place(
             id = 17L,
@@ -178,7 +178,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "6 Bevis Marks",
             cityLocation = "London EC3A 7BA",
             openingHours = "11:00 - 23:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         Place(
             id = 18L,
@@ -188,7 +188,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "65 Rivington St",
             cityLocation = "London EC2A 3AY",
             openingHours = "16:00 - 00:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         Place(
             id = 19L,
@@ -198,7 +198,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "30 Portman Square",
             cityLocation = "London W1H 7BH",
             openingHours = "12:00 - 00:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         Place(
             id = 20L,
@@ -208,7 +208,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "7 Old Compton St",
             cityLocation = "London W1D 5JE",
             openingHours = "12:00 - 00:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         // Nightclubs
         Place(
@@ -219,7 +219,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "77A Charterhouse St",
             cityLocation = "London EC1M 6HJ",
             openingHours = "22:00 - 06:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         ),
         Place(
             id = 22L,
@@ -229,7 +229,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "103 Gaunt St",
             cityLocation = "London SE1 6DP",
             openingHours = "23:00 - 06:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         ),
         Place(
             id = 23L,
@@ -239,7 +239,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "The Arches, Villiers St",
             cityLocation = "London WC2N 6NG",
             openingHours = "22:00 - 05:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         ),
         Place(
             id = 24L,
@@ -249,7 +249,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "200 York Way",
             cityLocation = "London N7 9AX",
             openingHours = "22:00 - 07:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         ),
         Place(
             id = 25L,
@@ -259,7 +259,7 @@ object LocalPlacesLondonDataProvider {
             streetAddress = "32-37 Cowper St",
             cityLocation = "London EC2A 4AP",
             openingHours = "21:00 - 03:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         )
     )
 }

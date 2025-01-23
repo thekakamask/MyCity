@@ -8,27 +8,27 @@ import com.dcac.mycity.model.Category
 object LocalNavigationCategoriesContentDataProvider {
     val navigationCategoriesContentLists = listOf(
         NavigationCategoriesContent(
-            category = Category.museum,
+            category = Category.MUSEUM,
             icon = R.drawable.icon_museum,
             text = R.string.museum
         ),
         NavigationCategoriesContent(
-            category = Category.maul,
+            category = Category.MAUL,
             icon = R.drawable.icon_maul,
             text = R.string.maul
         ),
         NavigationCategoriesContent(
-            category = Category.restaurant,
+            category = Category.RESTAURANT,
             icon = R.drawable.icon_restaurant,
             text = R.string.restaurant
         ),
         NavigationCategoriesContent(
-            category = Category.bar,
+            category = Category.BAR,
             icon = R.drawable.icon_bar,
             text = R.string.bar
         ),
         NavigationCategoriesContent(
-            category = Category.nightclub,
+            category = Category.NIGHTCLUB,
             icon = R.drawable.icon_nightclub,
             text = R.string.nightclub
         )

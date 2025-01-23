@@ -11,7 +11,7 @@ data class MyCityUiState(
 
     val navigationCategoriesContent: List<NavigationCategoriesContent> = emptyList(),
     // First selected category
-    val currentCategory: Category = Category.museum,
+    val currentCategory: Category = Category.MUSEUM,
     // Places filtered by the current city and category
     val places: List<Place> = emptyList(),
     // Detail screen state

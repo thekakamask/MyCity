@@ -15,7 +15,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Viale Vaticano",
             cityLocation = "00165 Roma RM, Italy",
             openingHours = "09:00 - 18:00",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         Place(
             id = 2L,
@@ -25,7 +25,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Piazza del Campidoglio, 1",
             cityLocation = "00186 Roma RM, Italy",
             openingHours = "09:30 - 19:30",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         Place(
             id = 3L,
@@ -35,7 +35,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Piazzale Scipione Borghese, 5",
             cityLocation = "00197 Roma RM, Italy",
             openingHours = "09:00 - 19:00",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         Place(
             id = 4L,
@@ -45,7 +45,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Largo di Villa Peretti, 1",
             cityLocation = "00185 Roma RM, Italy",
             openingHours = "09:00 - 19:45",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         Place(
             id = 5L,
@@ -55,7 +55,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Via Guido Reni, 4A",
             cityLocation = "00196 Roma RM, Italy",
             openingHours = "11:00 - 19:00",
-            category = Category.museum
+            category = Category.MUSEUM
         ),
         // Malls
         Place(
@@ -66,7 +66,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Via Collatina, 858",
             cityLocation = "00132 Roma RM, Italy",
             openingHours = "10:00 - 21:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         Place(
             id = 7L,
@@ -76,7 +76,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Viale dell'Oceano Pacifico, 83",
             cityLocation = "00144 Roma RM, Italy",
             openingHours = "10:00 - 21:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         Place(
             id = 8L,
@@ -86,7 +86,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Via Alberto Lionello, 201",
             cityLocation = "00139 Roma RM, Italy",
             openingHours = "10:00 - 22:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         Place(
             id = 9L,
@@ -96,7 +96,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Viale Palmiro Togliatti, 2",
             cityLocation = "00173 Roma RM, Italy",
             openingHours = "10:00 - 20:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         Place(
             id = 10L,
@@ -106,7 +106,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Via del Tritone, 61",
             cityLocation = "00187 Roma RM, Italy",
             openingHours = "10:00 - 21:00",
-            category = Category.maul
+            category = Category.MAUL
         ),
         // Restaurants
         Place(
@@ -117,7 +117,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Via dei Giubbonari, 21",
             cityLocation = "00186 Roma RM, Italy",
             openingHours = "12:30 - 23:00",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         Place(
             id = 12L,
@@ -127,7 +127,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Via dei Vascellari, 29",
             cityLocation = "00153 Roma RM, Italy",
             openingHours = "12:00 - 15:00, 19:00 - 23:00",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         Place(
             id = 13L,
@@ -137,7 +137,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Via Alberto Cadlolo, 101",
             cityLocation = "00136 Roma RM, Italy",
             openingHours = "19:30 - 23:30",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         Place(
             id = 14L,
@@ -147,7 +147,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Via di Ponte Quattro Capi, 16",
             cityLocation = "00186 Roma RM, Italy",
             openingHours = "12:00 - 22:30",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
         Place(
             id = 15L,
@@ -157,7 +157,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Via Giovanni da Empoli, 5",
             cityLocation = "00154 Roma RM, Italy",
             openingHours = "12:30 - 15:00, 19:30 - 23:00",
-            category = Category.restaurant
+            category = Category.RESTAURANT
         ),
 // Bars
         Place(
@@ -168,7 +168,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Vicolo Cellini, 30",
             cityLocation = "00186 Roma RM, Italy",
             openingHours = "19:00 - 02:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         Place(
             id = 17L,
@@ -178,7 +178,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Via del Politeama, 4",
             cityLocation = "00153 Roma RM, Italy",
             openingHours = "18:00 - 02:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         Place(
             id = 18L,
@@ -188,7 +188,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Piazza del Fico, 26",
             cityLocation = "00186 Roma RM, Italy",
             openingHours = "12:00 - 02:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         Place(
             id = 19L,
@@ -198,7 +198,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Piazza di S. Martino Ai Monti, 8",
             cityLocation = "00154 Roma RM, Italy",
             openingHours = "18:30 - 02:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         Place(
             id = 20L,
@@ -208,7 +208,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Via Fanfulla da Lodi, 53",
             cityLocation = "00176 Roma RM, Italy",
             openingHours = "20:00 - 02:00",
-            category = Category.bar
+            category = Category.BAR
         ),
         // Nightclubs
         Place(
@@ -219,7 +219,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Via Giuseppe Libetta, 13",
             cityLocation = "00154 Roma RM, Italy",
             openingHours = "23:00 - 04:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         ),
         Place(
             id = 22L,
@@ -229,7 +229,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Via di Torre Argentina, 78",
             cityLocation = "00186 Roma RM, Italy",
             openingHours = "23:00 - 04:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         ),
         Place(
             id = 23L,
@@ -239,7 +239,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Via del Galoppatoio, 33",
             cityLocation = "00197 Roma RM, Italy",
             openingHours = "23:30 - 04:30",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         ),
         Place(
             id = 24L,
@@ -249,7 +249,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Via di Portonaccio, 212",
             cityLocation = "00159 Roma RM, Italy",
             openingHours = "22:30 - 04:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         ),
         Place(
             id = 25L,
@@ -259,7 +259,7 @@ object LocalPlacesRomeDataProvider {
             streetAddress = "Via Tagliamento, 9",
             cityLocation = "00198 Roma RM, Italy",
             openingHours = "23:00 - 04:00",
-            category = Category.nightclub
+            category = Category.NIGHTCLUB
         )
     )
 }
