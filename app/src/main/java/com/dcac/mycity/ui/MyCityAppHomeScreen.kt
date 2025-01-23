@@ -1,10 +1,15 @@
 package com.dcac.mycity.ui
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.dcac.mycity.R
@@ -15,24 +20,26 @@ import com.dcac.mycity.model.City
 import com.dcac.mycity.model.MyCityUiState
 import com.dcac.mycity.model.Place
 import com.dcac.mycity.ui.theme.MyCityTheme
+import com.dcac.mycity.ui.utils.MyCityAppContentType
 import com.dcac.mycity.ui.utils.MyCityAppNavigationType
-import com.dcac.mycity.ui.utils.MyCityAppScreenEnum
 
 @Composable
 fun MyCityAppHomeScreen(
     myCityUiState: MyCityUiState,
+    contentType: MyCityAppContentType,
     navigationType: MyCityAppNavigationType,
-    currentScreen: MyCityAppScreenEnum,
     onPlaceClick: (Place) -> Unit,
-    onCitySelectedClick: (City) -> Unit,
     onLogoAppClick: () -> Unit,
+    onCitySelectedClick: (City) -> Unit,
     onCategoryTabPressed: ((Category) -> Unit),
+    onDevForwardArrowClick: () -> Unit,
     onDetailScreenAndroidBackPressed: () -> Unit,
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
+        horizontalArrangement = Arrangement.Start
     ) {
+
         if (navigationType == MyCityAppNavigationType.PERMANENT_NAVIGATION_DRAWER) {
             val navigationDrawerContentDescription = stringResource(R.string.navigation_drawer)
             MyCityAppNavigationDrawer(
@@ -40,41 +47,44 @@ fun MyCityAppHomeScreen(
                 onCitySelectedClick = onCitySelectedClick,
                 onCategoryTabPressed = onCategoryTabPressed,
                 onLogoAppClick = onLogoAppClick,
+                onDevForwardArrowClick = onDevForwardArrowClick,
                 modifier = Modifier
+                    .weight(0.2f)
+                    .fillMaxHeight()
                     .testTag(navigationDrawerContentDescription)
             )
-            MyCityAppContent(
-                myCityUiState = myCityUiState,
-                onPlaceClick = onPlaceClick,
-                onCategoryTabPressed = onCategoryTabPressed,
-                navigationType = navigationType,
-            )
-        } else {
-            if (myCityUiState.isShowingDetailPage){
-                MyCityAppDetails(
+        }
+        Box(
+            modifier = Modifier
+                .weight(0.8f)
+                .fillMaxHeight()
+        ) {
+            if (contentType == MyCityAppContentType.LIST_AND_DETAIL) {
+                MyCityAppListAndDetails(
                     myCityUiState = myCityUiState,
-                    onDetailScreenAndroidBackPressed = onDetailScreenAndroidBackPressed,
                     navigationType = navigationType,
-                    onCategoryTabPressed = onCategoryTabPressed
+                    onPlaceClick = onPlaceClick
                 )
             } else {
-                MyCityAppContent(
-                    myCityUiState = myCityUiState,
-                    onPlaceClick = onPlaceClick,
-                    onCategoryTabPressed = onCategoryTabPressed,
-                    navigationType = navigationType,
-                )
+                if (myCityUiState.isShowingDetailPage) {
+                    MyCityAppDetails(
+                        myCityUiState = myCityUiState,
+                        onDetailScreenAndroidBackPressed = onDetailScreenAndroidBackPressed,
+                        navigationType = navigationType,
+                        onCategoryTabPressed = onCategoryTabPressed
+                    )
+                } else {
+                    MyCityAppContent(
+                        myCityUiState = myCityUiState,
+                        onPlaceClick = onPlaceClick,
+                        onCategoryTabPressed = onCategoryTabPressed,
+                        navigationType = navigationType,
+                        contentType = contentType
+                    )
+                }
             }
         }
     }
-
-    /*val navigationRailContentDescription = stringResource(R.string.navigation_rail)
-    MyCityAppNavigationRail(
-        myCityUiState = myCityUiState,
-        onTabPressed = onTabPressed,
-        modifier = Modifier
-            .testTag(navigationRailContentDescription)
-    )*/
 }
 
 @Preview
@@ -90,10 +100,11 @@ fun MyCityAppScreenPreview() {
             onPlaceClick = {},
             onDetailScreenAndroidBackPressed = {},
             navigationType = MyCityAppNavigationType.BOTTOM_NAVIGATION,
-            currentScreen = MyCityAppScreenEnum.HomePage,
-            onCitySelectedClick = {},
-            onLogoAppClick = {},
+            contentType = MyCityAppContentType.LIST_ONLY,
             onCategoryTabPressed = {},
+            onLogoAppClick = {},
+            onCitySelectedClick = {},
+            onDevForwardArrowClick = {}
         )
     }
 }

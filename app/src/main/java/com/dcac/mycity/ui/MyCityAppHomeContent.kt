@@ -32,99 +32,106 @@ import com.dcac.mycity.model.Category
 import com.dcac.mycity.model.MyCityUiState
 import com.dcac.mycity.model.Place
 import com.dcac.mycity.ui.theme.MyCityTheme
+import com.dcac.mycity.ui.utils.MyCityAppContentType
 import com.dcac.mycity.ui.utils.MyCityAppNavigationType
 
 @Composable
 fun MyCityAppContent(
+    contentType: MyCityAppContentType,
     myCityUiState: MyCityUiState,
     onPlaceClick: (Place) -> Unit,
     onCategoryTabPressed: ((Category) -> Unit),
     navigationType: MyCityAppNavigationType,
 ) {
-    AnimatedVisibility(visible = navigationType == MyCityAppNavigationType.NAVIGATION_RAIL) {
-        val navigationRailContentDescription = stringResource(R.string.navigation_rail)
-        MyCityAppNavigationRail(
-            myCityUiState = myCityUiState,
-            onCategoryTabPressed = onCategoryTabPressed,
-            modifier = Modifier
-                .testTag(navigationRailContentDescription)
-        )
-    }
-    Column(
+    Row(
         modifier = Modifier
             .fillMaxSize()
     ) {
         AnimatedVisibility(visible = navigationType == MyCityAppNavigationType.NAVIGATION_RAIL) {
-            Row(
+            val navigationRailContentDescription = stringResource(R.string.navigation_rail)
+            MyCityAppNavigationRail(
+                myCityUiState = myCityUiState,
+                onCategoryTabPressed = onCategoryTabPressed,
+                modifier = Modifier
+                    .testTag(navigationRailContentDescription)
+            )
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            AnimatedVisibility(visible = navigationType == MyCityAppNavigationType.NAVIGATION_RAIL) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = myCityUiState.currentCity.imageResourceId),
+                        contentDescription = stringResource(id = myCityUiState.currentCity.name),
+                        modifier = Modifier
+                            .size(60.dp)
+                    )
+                    Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_large)))
+                    Row (horizontalArrangement = Arrangement.Center) {
+                        Text(
+                            text = stringResource(id = myCityUiState.currentCity.name),
+                            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                            maxLines = 1,
+                        )
+                        Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_small)))
+                        Text(
+                            text= stringResource(id = myCityUiState.currentCity.location),
+                            style = MaterialTheme.typography.bodyLarge,
+                            maxLines = 1,
+                        )
+                    }
+                }
+            }
+            AnimatedVisibility(visible = navigationType == MyCityAppNavigationType.BOTTOM_NAVIGATION) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = dimensionResource(R.dimen.padding_medium)),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Image(
+                        painter = painterResource(id = myCityUiState.currentCity.imageResourceId),
+                        contentDescription = stringResource(id = myCityUiState.currentCity.name),
+                        modifier = Modifier
+                            .size(100.dp)
+                    )
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_xsmall)),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Text(
+                            text = stringResource(id = myCityUiState.currentCity.name),
+                            style = MaterialTheme.typography.headlineSmall,
+                            maxLines = 1,
+                        )
+                        Text(
+                            text= stringResource(id = myCityUiState.currentCity.location),
+                            style = MaterialTheme.typography.bodyLarge,
+                            maxLines = 1,
+                        )
+                    }
+                }
+            }
+            HorizontalDivider(
                 modifier = Modifier
                     .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Image(
-                    painter = painterResource(id = myCityUiState.currentCity.imageResourceId),
-                    contentDescription = stringResource(id = myCityUiState.currentCity.name),
-                    modifier = Modifier
-                        .size(60.dp)
-                )
-                Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_large)))
-                Row (horizontalArrangement = Arrangement.Center) {
-                    Text(
-                        text = stringResource(id = myCityUiState.currentCity.name),
-                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                        maxLines = 1,
-                    )
-                    Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_small)))
-                    Text(
-                        text= stringResource(id = myCityUiState.currentCity.location),
-                        style = MaterialTheme.typography.bodyLarge,
-                        maxLines = 1,
-                    )
-                }
-            }
+                thickness = 2.dp,
+                color = Color.LightGray
+            )
+            MyCityAppList(
+                myCityUiState = myCityUiState,
+                navigationType = navigationType,
+                onPlaceClick = onPlaceClick,
+            )
         }
-        AnimatedVisibility(visible = navigationType == MyCityAppNavigationType.BOTTOM_NAVIGATION) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = dimensionResource(R.dimen.padding_medium)),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                Image(
-                    painter = painterResource(id = myCityUiState.currentCity.imageResourceId),
-                    contentDescription = stringResource(id = myCityUiState.currentCity.name),
-                    modifier = Modifier
-                        .size(100.dp)
-                )
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_xsmall)),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Text(
-                        text = stringResource(id = myCityUiState.currentCity.name),
-                        style = MaterialTheme.typography.headlineSmall,
-                        maxLines = 1,
-                    )
-                    Text(
-                        text= stringResource(id = myCityUiState.currentCity.location),
-                        style = MaterialTheme.typography.bodyLarge,
-                        maxLines = 1,
-                    )
-                }
-            }
-        }
-        HorizontalDivider(
-            modifier = Modifier
-                .fillMaxWidth(),
-            thickness = 2.dp,
-            color = Color.LightGray
-        )
-        MyCityAppList(
-            myCityUiState = myCityUiState,
-            navigationType = navigationType,
-            onPlaceClick = onPlaceClick,
-        )
     }
 }
 
@@ -140,6 +147,7 @@ fun MyCityAppContentPreview() {
             myCityUiState = myCityUiState,
             onPlaceClick = {},
             navigationType = MyCityAppNavigationType.BOTTOM_NAVIGATION,
+            contentType = MyCityAppContentType.LIST_ONLY,
             onCategoryTabPressed = {}
         )
     }

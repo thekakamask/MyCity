@@ -13,7 +13,7 @@
          - Shows a city image placeholder on the right.
          - Displays some back buttons to return to the home page.
          - Adapts padding to system insets (status bar and navigation buttons).
-      - 🟢 **IN PROGRESS** **BottomNar/NavigationRail/NavigationDrawer Implementation**:
+      - ✅ **DONE** **BottomNar/NavigationRail/NavigationDrawer Implementation**:
          - Displays the categories.
          - Shows a category icon you can select for see places.
          - **BottomBar** for smartphone in portrait.
@@ -24,7 +24,7 @@
       - Built with Jetpack Compose for a declarative user interface.
       - Integrated with Material 3 for an accessible and contemporary design.
       - Supports light and dark themes.
-      - 🟢 **IN PROGRESS** Adaptive layouts for smartphones and tablets.
+      - ✅ **DONE** Adaptive layouts for smartphones and tablets.
    - 🔄 **Smooth Navigation**:
       - ✅ **DONE** Navigate seamlessly between different screens using Jetpack Navigation.                   
 
@@ -109,6 +109,7 @@
 
    ![main screen portrait](screenshots/main_screen_portrait.png)
    ![main screen lanscape](screenshots/main_screen_landscape.png)
+   ![main screen tablet](screenshots/main_screen_tablet.png)
 
 - **Details screen**:
 

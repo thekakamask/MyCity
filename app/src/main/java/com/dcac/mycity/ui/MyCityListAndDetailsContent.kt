@@ -51,23 +51,34 @@ fun MyCityAppListAndDetails(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        MyCityAppList(
-            myCityUiState = myCityUiState,
-            navigationType = navigationType,
-            onPlaceClick = onPlaceClick,
-        )
-        MyCityAppDetails(
-            myCityUiState = myCityUiState,
-            onDetailScreenAndroidBackPressed = {},
-            navigationType = navigationType,
-            onCategoryTabPressed = {}
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+        ) {
+            MyCityAppList(
+                myCityUiState = myCityUiState,
+                navigationType = navigationType,
+                onPlaceClick = onPlaceClick
+            )
+        }
 
-        )
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+        ) {
+            MyCityAppDetails(
+                myCityUiState = myCityUiState,
+                navigationType = navigationType,
+                onDetailScreenAndroidBackPressed = {},
+                onCategoryTabPressed = {}
+            )
+        }
     }
-
 }
 @Composable
 fun MyCityAppList(
@@ -75,7 +86,6 @@ fun MyCityAppList(
     navigationType: MyCityAppNavigationType,
     onPlaceClick: (Place) -> Unit,
 ) {
-
     LazyColumn {
         items(myCityUiState.places) { place ->
             Column {
@@ -100,52 +110,7 @@ fun MyCityAppListItem(
     navigationType: MyCityAppNavigationType,
     onPlaceClick: (Place) -> Unit
 ) {
-    AnimatedVisibility(navigationType == MyCityAppNavigationType.NAVIGATION_RAIL) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onPlaceClick(place) }
-                .padding(dimensionResource(R.dimen.padding_small)),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                painter = painterResource(id = place.imageResourceId),
-                contentDescription = place.name,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(60.dp)
-                    .clip(CircleShape)
-            )
-            Spacer(modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_small)))
-            Column(
-                verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_xxsmall)),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    text = place.name,
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 1,
-                )
-                Text(
-                    text= place.streetAddress,
-                    style = MaterialTheme.typography.bodySmall,
-                    maxLines = 1,
-                )
-
-                Text(
-                    text = place.cityLocation,
-                    style = MaterialTheme.typography.bodySmall,
-                    maxLines = 1,
-                )
-                Text(
-                    text = place.openingHours,
-                    style = MaterialTheme.typography.bodySmall,
-                    maxLines = 1,
-                )
-            }
-        }
-    }
-    AnimatedVisibility(navigationType == MyCityAppNavigationType.BOTTOM_NAVIGATION) {
+    if (navigationType == MyCityAppNavigationType.PERMANENT_NAVIGATION_DRAWER) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -189,6 +154,97 @@ fun MyCityAppListItem(
                 )
             }
         }
+    } else {
+        AnimatedVisibility(navigationType == MyCityAppNavigationType.NAVIGATION_RAIL) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onPlaceClick(place) }
+                    .padding(dimensionResource(R.dimen.padding_small)),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = place.imageResourceId),
+                    contentDescription = place.name,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(60.dp)
+                        .clip(CircleShape)
+                )
+                Spacer(modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_small)))
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_xxsmall)),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = place.name,
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 1,
+                    )
+                    Text(
+                        text= place.streetAddress,
+                        style = MaterialTheme.typography.bodySmall,
+                        maxLines = 1,
+                    )
+
+                    Text(
+                        text = place.cityLocation,
+                        style = MaterialTheme.typography.bodySmall,
+                        maxLines = 1,
+                    )
+                    Text(
+                        text = place.openingHours,
+                        style = MaterialTheme.typography.bodySmall,
+                        maxLines = 1,
+                    )
+                }
+            }
+        }
+        AnimatedVisibility(navigationType == MyCityAppNavigationType.BOTTOM_NAVIGATION) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onPlaceClick(place) }
+                    .padding(dimensionResource(R.dimen.padding_medium)),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = place.imageResourceId),
+                    contentDescription = place.name,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(CircleShape)
+                )
+                Spacer(modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_small)))
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_xsmall)),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = place.name,
+                        style = MaterialTheme.typography.bodyLarge,
+                        maxLines = 1,
+                    )
+                    Text(
+                        text= place.streetAddress,
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 1,
+                    )
+
+                    Text(
+                        text = place.cityLocation,
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 1,
+                    )
+                    Text(
+                        text = place.openingHours,
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 1,
+                    )
+                }
+            }
+        }
     }
 }
 
@@ -205,37 +261,39 @@ fun MyCityAppDetails(
 
     val currentPlace = myCityUiState.currentPlace
 
-    AnimatedVisibility(visible = navigationType == MyCityAppNavigationType.NAVIGATION_RAIL) {
-        val navigationRailContentDescription = stringResource(R.string.navigation_rail)
-        MyCityAppNavigationRail(
-            myCityUiState = myCityUiState,
-            onCategoryTabPressed = onCategoryTabPressed,
-            modifier = Modifier
-                .testTag(navigationRailContentDescription)
-        )
-    }
-
-    if (currentPlace != null) {
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
         AnimatedVisibility(visible = navigationType == MyCityAppNavigationType.NAVIGATION_RAIL) {
-            Row(modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = dimensionResource(R.dimen.padding_small),
-                    vertical = dimensionResource(R.dimen.padding_small)),
-                horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)))
-            {
-                Image(
-                    painter = painterResource(id = currentPlace.imageResourceId),
-                    contentDescription = currentPlace.name,
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .aspectRatio(9 / 16f)
-                        .clip(androidx.compose.foundation.shape.RoundedCornerShape(dimensionResource(R.dimen.padding_small))),
-                    contentScale = ContentScale.Crop
-                )
+            val navigationRailContentDescription = stringResource(R.string.navigation_rail)
+            MyCityAppNavigationRail(
+                myCityUiState = myCityUiState,
+                onCategoryTabPressed = onCategoryTabPressed,
+                modifier = Modifier
+                    .testTag(navigationRailContentDescription)
+            )
+        }
+
+        if (currentPlace != null) {
+            if (navigationType == MyCityAppNavigationType.PERMANENT_NAVIGATION_DRAWER) {
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_xsmall)),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = dimensionResource(R.dimen.padding_medium),
+                            vertical = dimensionResource(R.dimen.padding_small)),
+                    verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
                 ) {
+                    Image(
+                        painter = painterResource(id = currentPlace.imageResourceId),
+                        contentDescription = currentPlace.name,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(16 / 9f)
+                            .clip(androidx.compose.foundation.shape.RoundedCornerShape(dimensionResource(R.dimen.padding_small))),
+                        contentScale = ContentScale.Crop
+                    )
+
                     Text(
                         text = currentPlace.name,
                         style = MaterialTheme.typography.headlineMedium,
@@ -273,73 +331,133 @@ fun MyCityAppDetails(
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
+            } else {
+                AnimatedVisibility(visible = navigationType == MyCityAppNavigationType.NAVIGATION_RAIL) {
+                    Row(modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = dimensionResource(R.dimen.padding_small),
+                            vertical = dimensionResource(R.dimen.padding_small)),
+                        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)))
+                    {
+                        Image(
+                            painter = painterResource(id = currentPlace.imageResourceId),
+                            contentDescription = currentPlace.name,
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .aspectRatio(9 / 16f)
+                                .clip(androidx.compose.foundation.shape.RoundedCornerShape(dimensionResource(R.dimen.padding_small))),
+                            contentScale = ContentScale.Crop
+                        )
+                        Column(
+                            verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_xsmall)),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                text = currentPlace.name,
+                                style = MaterialTheme.typography.headlineMedium,
+                                modifier = Modifier.padding(vertical = dimensionResource(R.dimen.padding_xsmall))
+                            )
+
+                            Text(
+                                text = "Address:",
+                                style = MaterialTheme.typography.bodyLarge.copy(
+                                    textDecoration = TextDecoration.Underline
+                                )
+                            )
+                            Text(
+                                text = "${currentPlace.streetAddress}, ${currentPlace.cityLocation}",
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                            Text(
+                                text = "Opening Hours:",
+                                style = MaterialTheme.typography.bodyLarge.copy(
+                                    textDecoration = TextDecoration.Underline
+                                )
+                            )
+                            Text(
+                                text = currentPlace.openingHours,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                            Text(
+                                text = "Description:",
+                                style = MaterialTheme.typography.bodyLarge.copy(
+                                    textDecoration = TextDecoration.Underline
+                                )
+                            )
+                            Text(
+                                text = currentPlace.description,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                    }
+                }
+                AnimatedVisibility(visible = navigationType == MyCityAppNavigationType.BOTTOM_NAVIGATION) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(horizontal = dimensionResource(R.dimen.padding_medium),
+                                vertical = dimensionResource(R.dimen.padding_small)),
+                        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
+                    ) {
+                        Image(
+                            painter = painterResource(id = currentPlace.imageResourceId),
+                            contentDescription = currentPlace.name,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .aspectRatio(16 / 9f)
+                                .clip(androidx.compose.foundation.shape.RoundedCornerShape(dimensionResource(R.dimen.padding_small))),
+                            contentScale = ContentScale.Crop
+                        )
+
+                        Text(
+                            text = currentPlace.name,
+                            style = MaterialTheme.typography.headlineMedium,
+                            modifier = Modifier.padding(vertical = dimensionResource(R.dimen.padding_xsmall))
+                        )
+
+                        Text(
+                            text = "Address:",
+                            style = MaterialTheme.typography.bodyLarge.copy(
+                                textDecoration = TextDecoration.Underline
+                            )
+                        )
+                        Text(
+                            text = "${currentPlace.streetAddress}, ${currentPlace.cityLocation}",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Text(
+                            text = "Opening Hours:",
+                            style = MaterialTheme.typography.bodyLarge.copy(
+                                textDecoration = TextDecoration.Underline
+                            )
+                        )
+                        Text(
+                            text = currentPlace.openingHours,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Text(
+                            text = "Description:",
+                            style = MaterialTheme.typography.bodyLarge.copy(
+                                textDecoration = TextDecoration.Underline
+                            )
+                        )
+                        Text(
+                            text = currentPlace.description,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                }
             }
-        }
-        AnimatedVisibility(visible = navigationType == MyCityAppNavigationType.BOTTOM_NAVIGATION) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = dimensionResource(R.dimen.padding_medium),
-                        vertical = dimensionResource(R.dimen.padding_small)),
-                verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
+        } else {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.fillMaxSize()
             ) {
-                Image(
-                    painter = painterResource(id = currentPlace.imageResourceId),
-                    contentDescription = currentPlace.name,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(16 / 9f)
-                        .clip(androidx.compose.foundation.shape.RoundedCornerShape(dimensionResource(R.dimen.padding_small))),
-                    contentScale = ContentScale.Crop
-                )
-
                 Text(
-                    text = currentPlace.name,
-                    style = MaterialTheme.typography.headlineMedium,
-                    modifier = Modifier.padding(vertical = dimensionResource(R.dimen.padding_xsmall))
-                )
-
-                Text(
-                    text = "Address:",
-                    style = MaterialTheme.typography.bodyLarge.copy(
-                        textDecoration = TextDecoration.Underline
-                    )
-                )
-                Text(
-                    text = "${currentPlace.streetAddress}, ${currentPlace.cityLocation}",
-                    style = MaterialTheme.typography.bodyMedium
-                )
-                Text(
-                    text = "Opening Hours:",
-                    style = MaterialTheme.typography.bodyLarge.copy(
-                        textDecoration = TextDecoration.Underline
-                    )
-                )
-                Text(
-                    text = currentPlace.openingHours,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-                Text(
-                    text = "Description:",
-                    style = MaterialTheme.typography.bodyLarge.copy(
-                        textDecoration = TextDecoration.Underline
-                    )
-                )
-                Text(
-                    text = currentPlace.description,
-                    style = MaterialTheme.typography.bodyMedium
+                    text = "No place selected",
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
-        }
-    } else {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Text(
-                text = "No place selected",
-                style = MaterialTheme.typography.bodyLarge
-            )
         }
     }
 }

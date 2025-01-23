@@ -27,6 +27,7 @@ import com.dcac.mycity.datasource.localPlacesCityDataProvider.LocalPlacesParisDa
 import com.dcac.mycity.model.Category
 import com.dcac.mycity.model.MyCityUiState
 import com.dcac.mycity.ui.theme.MyCityTheme
+import com.dcac.mycity.ui.utils.MyCityAppContentType
 import com.dcac.mycity.ui.utils.MyCityAppNavigationType
 import com.dcac.mycity.ui.utils.MyCityAppScreenEnum
 import com.dcac.mycity.ui.utils.isLandscapeSmartphone
@@ -43,31 +44,31 @@ fun MyCityApp(
         backStackEntry?.destination?.route ?: MyCityAppScreenEnum.HomePage.name
     )
     val navigationType: MyCityAppNavigationType
-    //val contentType: MyCityAppContentType
+    val contentType: MyCityAppContentType
 
     when(windowSize) {
         WindowWidthSizeClass.Compact -> {
             navigationType = MyCityAppNavigationType.BOTTOM_NAVIGATION
-            //contentType = MyCityAppContentType.LIST_ONLY
+            contentType = MyCityAppContentType.LIST_ONLY
         }
         WindowWidthSizeClass.Medium -> {
             navigationType =MyCityAppNavigationType.NAVIGATION_RAIL
-            //contentType = MyCityAppContentType.LIST_ONLY
+            contentType = MyCityAppContentType.LIST_ONLY
         }
         WindowWidthSizeClass.Expanded -> {
             val isLandscapeSmartphone = isLandscapeSmartphone()
-            navigationType = if (isLandscapeSmartphone) {
-                MyCityAppNavigationType.NAVIGATION_RAIL // Display rail on smartphone landscape
-                //contentType = MyCityAppContentType.LIST_ONLY
+            if (isLandscapeSmartphone) {
+                navigationType = MyCityAppNavigationType.NAVIGATION_RAIL // Display rail on smartphone landscape
+                contentType = MyCityAppContentType.LIST_ONLY
 
             } else {
-                MyCityAppNavigationType.PERMANENT_NAVIGATION_DRAWER // Drawer for tablet
-                //contentType = MyCityAppContentType.LIST_AND_DETAIL
+                navigationType = MyCityAppNavigationType.PERMANENT_NAVIGATION_DRAWER // Drawer for tablet
+                contentType = MyCityAppContentType.LIST_AND_DETAIL
             }
         }
         else -> {
             navigationType = MyCityAppNavigationType.BOTTOM_NAVIGATION
-            //contentType = MyCityAppContentType.LIST_ONLY
+            contentType = MyCityAppContentType.LIST_ONLY
         }
     }
 
@@ -135,16 +136,6 @@ fun MyCityApp(
 
 
     ){ innerPadding ->
-        /*Row(
-            modifier = Modifier
-                .padding(
-                    start = 0.dp,
-                    top = innerPadding.calculateTopPadding(),
-                    end = innerPadding.calculateRightPadding(layoutDirection = LayoutDirection.Ltr),
-                    bottom = innerPadding.calculateBottomPadding(),
-                )
-                .fillMaxSize()
-        ) {*/
         NavHost(
             navController = navController,
             startDestination = MyCityAppScreenEnum.HomePage.name,
@@ -159,15 +150,18 @@ fun MyCityApp(
                 MyCityAppHomeScreen(
                     myCityUiState = myCityUiState,
                     navigationType = navigationType,
-                    currentScreen = currentScreen,
-                    onCitySelectedClick = { viewModel.updateCurrentCity(it) },
-                    onLogoAppClick = {
-                        viewModel.devToHomeScreenStates()
-                        navController.navigate(MyCityAppScreenEnum.DevPage.name)
-                    },
+                    contentType = contentType,
                     onCategoryTabPressed = { category: Category ->
                         viewModel.updateCurrentCategory(category)
                     },
+                    onLogoAppClick = {
+                        viewModel.devToHomeScreenStates()
+                        navController.navigate(MyCityAppScreenEnum.DevPage.name)},
+                    onDevForwardArrowClick = {
+                        navController.navigateUp()
+                        viewModel.resetHomeScreenStates()
+                    },
+                    onCitySelectedClick = { viewModel.updateCurrentCity(it) },
                     onPlaceClick = { viewModel.updateDetailsScreenState(it) },
                     onDetailScreenAndroidBackPressed = { viewModel.resetHomeScreenStates() },
                 )
@@ -226,12 +220,14 @@ fun MyCityAppPreview() {
                     MyCityAppHomeScreen(
                         myCityUiState = exampleUiState,
                         navigationType = MyCityAppNavigationType.BOTTOM_NAVIGATION,
-                        currentScreen = MyCityAppScreenEnum.HomePage,
-                        onCitySelectedClick = { /* No-op for Preview */ },
-                        onLogoAppClick = { /* No-op for Preview */ },
+                        contentType = MyCityAppContentType.LIST_ONLY,
                         onCategoryTabPressed = { /* No-op for Preview */ },
                         onPlaceClick = { /* No-op for Preview */ },
-                        onDetailScreenAndroidBackPressed = { /* No-op for Preview */ }
+                        onDetailScreenAndroidBackPressed = { /* No-op for Preview */ },
+                        onLogoAppClick = { /* No-op for Preview */ },
+                        onCitySelectedClick = { /* No-op for Preview */ },
+                        onDevForwardArrowClick = { /* No-op for Preview */ },
+
                     )
                 }
             }

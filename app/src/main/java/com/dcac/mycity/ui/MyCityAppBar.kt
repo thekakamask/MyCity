@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -27,6 +28,8 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
+import androidx.compose.material3.PermanentDrawerSheet
+import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -39,6 +42,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -231,40 +235,52 @@ fun MyCityAppNavigationDrawer(
     onCitySelectedClick: (City) -> Unit,
     onLogoAppClick: () -> Unit,
     onCategoryTabPressed: ((Category) -> Unit),
+    onDevForwardArrowClick: () -> Unit,
     modifier: Modifier
 ) {
-
-    Column(modifier = modifier.fillMaxHeight()) {
-        MyCityAppNavigationDrawerHeader(
-            myCityUiState = myCityUiState,
-            onCitySelectedClick = onCitySelectedClick,
-            onLogoAppClick = onLogoAppClick,
-        )
-        for (navItem in myCityUiState.navigationCategoriesContent) {
-            NavigationDrawerItem(
-                selected = myCityUiState.currentCategory == navItem.category,
-                label = {
-                    Text(
-                        text = stringResource(id = navItem.text),
-                        modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_medium))
+    PermanentNavigationDrawer(
+        modifier = modifier,
+        drawerContent = {
+            PermanentDrawerSheet(Modifier
+                .width(dimensionResource(R.dimen.drawer_width)),
+                //drawerContainerColor = MaterialTheme.colorScheme.inverseOnSurface
+            ) {
+                Column(modifier = modifier.fillMaxHeight()) {
+                    MyCityAppNavigationDrawerHeader(
+                        myCityUiState = myCityUiState,
+                        onCitySelectedClick = onCitySelectedClick,
+                        onDevForwardArrowClick = onDevForwardArrowClick,
+                        onLogoAppClick = onLogoAppClick,
                     )
-                },
-                onClick = { onCategoryTabPressed(navItem.category) },
-                icon = {
-                    Icon(
-                        painter = painterResource(id = navItem.icon),
-                        contentDescription = stringResource(id = navItem.text)
-                    )
-                },
-            )
-        }
-    }
+                    for (navItem in myCityUiState.navigationCategoriesContent) {
+                        NavigationDrawerItem(
+                            selected = myCityUiState.currentCategory == navItem.category,
+                            label = {
+                                Text(
+                                    text = stringResource(id = navItem.text),
+                                    modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_medium))
+                                )
+                            },
+                            onClick = { onCategoryTabPressed(navItem.category) },
+                            icon = {
+                                Icon(
+                                    painter = painterResource(id = navItem.icon),
+                                    contentDescription = stringResource(id = navItem.text)
+                                )
+                            },
+                        )
+                    }
+                }
+            }
+        },
+    ) {}
 }
 
 @Composable
 private fun MyCityAppNavigationDrawerHeader(
     myCityUiState: MyCityUiState,
     onCitySelectedClick: (City) -> Unit,
+    onDevForwardArrowClick: () -> Unit,
     onLogoAppClick: () -> Unit
 ) {
 
@@ -284,39 +300,43 @@ private fun MyCityAppNavigationDrawerHeader(
             onLogoAppClick = onLogoAppClick,
             modifier = Modifier
         )
-        CityMenuItem(
-            city = myCityUiState.currentCity,
-            modifier = Modifier
-                .size(dimensionResource(R.dimen.topbar_logo_city_image_size))
-                .clip(CircleShape)
-                .clickable(
-                    onClick = { isMenuExpanded = true },
-                    indication = null,
-                    interactionSource = remember { MutableInteractionSource() }
-                )
-        )
-        DropdownMenu(
-            expanded = isMenuExpanded,
-            onDismissRequest = { isMenuExpanded = false },
-            modifier = Modifier.width(dimensionResource(R.dimen.topbar_logo_city_image_size))
-        ) {
-            myCityUiState.availableCities.keys.forEach { city ->
-                DropdownMenuItem(
-                    text = {},
-                    leadingIcon = {
-                        Image(
-                            painter = painterResource(id = city.imageIconId),
-                            contentDescription = stringResource(id = city.name),
-                            modifier = Modifier
-                                .size(dimensionResource(R.dimen.topbar_logo_city_image_size))
-                                .clip(CircleShape)
-                        )
-                    },
-                    onClick = {
-                        onCitySelectedClick(city)
-                        isMenuExpanded = false
-                    },
-                )
+        Box {
+            CityMenuItem(
+                city = myCityUiState.currentCity,
+                modifier = Modifier
+                    .padding(end = dimensionResource(R.dimen.padding_small))
+                    .size(dimensionResource(R.dimen.topbar_logo_city_image_size))
+                    .clip(CircleShape)
+                    .clickable(
+                        onClick = { isMenuExpanded = true },
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() }
+                    )
+            )
+
+            DropdownMenu(
+                expanded = isMenuExpanded,
+                onDismissRequest = { isMenuExpanded = false },
+                modifier = Modifier.width(dimensionResource(R.dimen.topbar_logo_city_image_size))
+            ) {
+                myCityUiState.availableCities.keys.forEach { city ->
+                    DropdownMenuItem(
+                        text = {},
+                        leadingIcon = {
+                            Image(
+                                painter = painterResource(id = city.imageIconId),
+                                contentDescription = stringResource(id = city.name),
+                                modifier = Modifier
+                                    .size(dimensionResource(R.dimen.topbar_logo_city_image_size))
+                                    .clip(CircleShape)
+                            )
+                        },
+                        onClick = {
+                            onCitySelectedClick(city)
+                            isMenuExpanded = false
+                        },
+                    )
+                }
             }
         }
     }
@@ -391,7 +411,8 @@ fun MyCityAppNavigationDrawerPreview() {
                 myCityUiState = exampleUiState,
                 onCitySelectedClick = {},
                 onLogoAppClick = {},
-                onCategoryTabPressed = {}
+                onCategoryTabPressed = {},
+                onDevForwardArrowClick = {}
             )
         }
     }
