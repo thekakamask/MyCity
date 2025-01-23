@@ -120,6 +120,7 @@
 
    ![dev screen portrait](screenshots/dev_screen_portrait.png)
    ![dev screen landscape](screenshots/dev_screen_landscape.png)
+   ![dev screen tablet](screenshots/dev_screen_tablet.png)
 
 ## 🤝 **Contributions**
 Contributions are welcome! Feel free to fork the repository and submit a pull request for new features or bug fixes.✅

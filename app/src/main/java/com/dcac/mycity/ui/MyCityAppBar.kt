@@ -232,6 +232,7 @@ fun MyCityAppNavigationRail(
 @Composable
 fun MyCityAppNavigationDrawer(
     myCityUiState: MyCityUiState,
+    isDevScreen: Boolean,
     onCitySelectedClick: (City) -> Unit,
     onLogoAppClick: () -> Unit,
     onCategoryTabPressed: ((Category) -> Unit),
@@ -248,6 +249,7 @@ fun MyCityAppNavigationDrawer(
                 Column(modifier = modifier.fillMaxHeight()) {
                     MyCityAppNavigationDrawerHeader(
                         myCityUiState = myCityUiState,
+                        isDevScreen = isDevScreen,
                         onCitySelectedClick = onCitySelectedClick,
                         onDevForwardArrowClick = onDevForwardArrowClick,
                         onLogoAppClick = onLogoAppClick,
@@ -279,6 +281,7 @@ fun MyCityAppNavigationDrawer(
 @Composable
 private fun MyCityAppNavigationDrawerHeader(
     myCityUiState: MyCityUiState,
+    isDevScreen: Boolean,
     onCitySelectedClick: (City) -> Unit,
     onDevForwardArrowClick: () -> Unit,
     onLogoAppClick: () -> Unit
@@ -296,46 +299,70 @@ private fun MyCityAppNavigationDrawerHeader(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        MyCityAppLogo(
-            onLogoAppClick = onLogoAppClick,
-            modifier = Modifier
-        )
-        Box {
-            CityMenuItem(
-                city = myCityUiState.currentCity,
-                modifier = Modifier
-                    .padding(end = dimensionResource(R.dimen.padding_small))
-                    .size(dimensionResource(R.dimen.topbar_logo_city_image_size))
-                    .clip(CircleShape)
-                    .clickable(
-                        onClick = { isMenuExpanded = true },
-                        indication = null,
-                        interactionSource = remember { MutableInteractionSource() }
-                    )
-            )
+        when {
+            isDevScreen -> {
+                MyCityAppLogo(
+                    onLogoAppClick = {},
+                    modifier = Modifier
+                )
+            }
+            else -> {
+                MyCityAppLogo(
+                    onLogoAppClick = onLogoAppClick,
+                    modifier = Modifier
+                )
+            }
+        }
 
-            DropdownMenu(
-                expanded = isMenuExpanded,
-                onDismissRequest = { isMenuExpanded = false },
-                modifier = Modifier.width(dimensionResource(R.dimen.topbar_logo_city_image_size))
-            ) {
-                myCityUiState.availableCities.keys.forEach { city ->
-                    DropdownMenuItem(
-                        text = {},
-                        leadingIcon = {
-                            Image(
-                                painter = painterResource(id = city.imageIconId),
-                                contentDescription = stringResource(id = city.name),
-                                modifier = Modifier
-                                    .size(dimensionResource(R.dimen.topbar_logo_city_image_size))
-                                    .clip(CircleShape)
-                            )
-                        },
-                        onClick = {
-                            onCitySelectedClick(city)
-                            isMenuExpanded = false
-                        },
+        when {
+            isDevScreen -> {
+                // Flèche forward pour la page Dev
+                IconButton(onClick = onDevForwardArrowClick) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                        contentDescription = stringResource(R.string.dev_screen_forward_button)
                     )
+                }
+            }
+            else -> {
+                Box {
+                    CityMenuItem(
+                        city = myCityUiState.currentCity,
+                        modifier = Modifier
+                            .padding(end = dimensionResource(R.dimen.padding_small))
+                            .size(dimensionResource(R.dimen.topbar_logo_city_image_size))
+                            .clip(CircleShape)
+                            .clickable(
+                                onClick = { isMenuExpanded = true },
+                                indication = null,
+                                interactionSource = remember { MutableInteractionSource() }
+                            )
+                    )
+
+                    DropdownMenu(
+                        expanded = isMenuExpanded,
+                        onDismissRequest = { isMenuExpanded = false },
+                        modifier = Modifier.width(dimensionResource(R.dimen.topbar_logo_city_image_size))
+                    ) {
+                        myCityUiState.availableCities.keys.forEach { city ->
+                            DropdownMenuItem(
+                                text = {},
+                                leadingIcon = {
+                                    Image(
+                                        painter = painterResource(id = city.imageIconId),
+                                        contentDescription = stringResource(id = city.name),
+                                        modifier = Modifier
+                                            .size(dimensionResource(R.dimen.topbar_logo_city_image_size))
+                                            .clip(CircleShape)
+                                    )
+                                },
+                                onClick = {
+                                    onCitySelectedClick(city)
+                                    isMenuExpanded = false
+                                },
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -412,6 +439,7 @@ fun MyCityAppNavigationDrawerPreview() {
                 onCitySelectedClick = {},
                 onLogoAppClick = {},
                 onCategoryTabPressed = {},
+                isDevScreen = false,
                 onDevForwardArrowClick = {}
             )
         }

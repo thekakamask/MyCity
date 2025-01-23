@@ -37,7 +37,6 @@ import com.dcac.mycity.ui.utils.MyCityAppNavigationType
 
 @Composable
 fun MyCityAppContent(
-    contentType: MyCityAppContentType,
     myCityUiState: MyCityUiState,
     onPlaceClick: (Place) -> Unit,
     onCategoryTabPressed: ((Category) -> Unit),
@@ -147,7 +146,6 @@ fun MyCityAppContentPreview() {
             myCityUiState = myCityUiState,
             onPlaceClick = {},
             navigationType = MyCityAppNavigationType.BOTTOM_NAVIGATION,
-            contentType = MyCityAppContentType.LIST_ONLY,
             onCategoryTabPressed = {}
         )
     }

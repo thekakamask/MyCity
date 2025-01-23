@@ -18,4 +18,6 @@ data class MyCityUiState(
     val currentPlace: Place? = null,
     // home page or detail page
     val isShowingDetailPage: Boolean = false,
+    //Home or Devpage (NavigationDrawer)
+    val isShowingDevPage: Boolean = false
 )

@@ -73,6 +73,13 @@ object MyCityViewmodel : ViewModel() {
         }
     }
 
+    fun updateDevScreenState(){
+        _uiState.update {
+            it.copy(
+                isShowingDevPage = true
+            )
+        }
+    }
     // back button of the top bar
     fun resetHomeScreenStates() {
         _uiState.update {
@@ -83,13 +90,5 @@ object MyCityViewmodel : ViewModel() {
         }
     }
 
-    fun devToHomeScreenStates() {
-        _uiState.update {
-            it.copy(
-                isShowingDetailPage = false,
-                currentPlace = null
-            )
-        }
-    }
 
 }
